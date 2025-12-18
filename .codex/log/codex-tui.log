@@ -1,0 +1,2062 @@
+2025-12-12T21:47:29.197006Z  INFO cwd not set, using current dir
+2025-12-12T21:47:48.159240Z  INFO spawning ghost snapshot task
+2025-12-12T21:47:48.226574Z  INFO ghost snapshot blocking task finished
+2025-12-12T21:47:48.226704Z  INFO ghost commit captured: 2244395c6596cec18bf0d2ed3c5a7f1f228705d7
+2025-12-12T21:47:48.226721Z  INFO ghost snapshot gate marked ready
+2025-12-12T21:47:50.343938Z  INFO ToolCall: shell_command {"command":"ls","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:47:52.209392Z  INFO ToolCall: shell_command {"command":"ls .specify","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:47:55.256933Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/memory/constitution.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:47:59.757848Z  INFO ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Review constitution template placeholders and gather project context/principles from user input and repo docs"},{"status":"pending","step":"Draft updated constitution with filled principles/sections, decide version bump and dates"},{"status":"pending","step":"Align templates and guidance docs with new constitution and finalize sync impact report"}]}
+2025-12-12T21:48:02.213359Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' README.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:03.163274Z  WARN stream disconnected - retrying turn (1/5 in 196ms)...
+2025-12-12T21:48:06.282994Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/templates/plan-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:08.333402Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/templates/spec-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:11.012761Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/templates/tasks-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:13.371688Z  INFO ToolCall: shell_command {"command":"sed -n '200,400p' .specify/templates/tasks-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:16.259130Z  INFO ToolCall: shell_command {"command":"ls .specify/templates/commands","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:19.936485Z  INFO ToolCall: shell_command {"command":"ls .specify/templates","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:20.636902Z  WARN stream disconnected - retrying turn (1/5 in 197ms)...
+2025-12-12T21:48:25.466356Z  INFO ToolCall: shell_command {"command":"ls .specify/memory","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:33.077177Z  INFO ToolCall: shell_command {"command":"date -I","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:36.581087Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/templates/agent-file-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:48:40.474499Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/templates/checklist-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:49:02.351263Z  INFO ToolCall: update_plan {"explanation":"Gathered constitution template placeholders and reviewed templates (plan, spec, tasks, agent, checklist). Ready to draft updated constitution using provided project principles.","plan":[{"status":"completed","step":"Review constitution template placeholders and gather project context/principles from user input and repo docs"},{"status":"in_progress","step":"Draft updated constitution with filled principles/sections, decide version bump and dates"},{"status":"pending","step":"Align templates and guidance docs with new constitution and finalize sync impact report"}]}
+2025-12-12T21:49:04.479336Z  WARN stream disconnected - retrying turn (1/5 in 212ms)...
+2025-12-12T21:49:16.854957Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Delete File: .specify/memory/constitution.md
+*** End Patch
+2025-12-12T21:49:34.496910Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: .specify/memory/constitution.md
++<!--
++Sync Impact Report
++Version change: 0.0.0 → 1.0.0
++Modified principles: (none → established) Clarity Over Complexity; Russian-Market Relevance; User-Centric Design; Transparency of Data; Moderated Community Contribution; Incremental Development; Frontend-Only Independence
++Added sections: Platform Scope & Constraints; Development Workflow & Quality Gates
++Removed sections: None (template placeholders replaced)
++Templates requiring updates: .specify/templates/plan-template.md ✅; .specify/templates/spec-template.md ✅; .specify/templates/tasks-template.md ✅; .specify/templates/agent-file-template.md ⚠ (no constitution-dependent edits needed now)
++Follow-up TODOs: None
++-->
++# Marusya Space Constitution
++
++## Core Principles
++
++### I. Clarity Over Complexity
++Every artifact (UI, copy, data model, roadmap) MUST prefer clear, structured information over feature bloat. Navigation, filters, and labels MUST remain minimal and self-explanatory in Russian first; advanced options require explicit user value. Reject features that add cognitive load without measurable benefit to primary journeys (tool discovery, comparison, and access guidance).
++
++### II. Russian-Market Relevance
++All content MUST account for Russian users’ constraints: surface VPN requirements, regional blocks, SIM/ID verification needs, payment barriers, and language availability. For each tool, flag whether it works without VPN, supports Russian UI, and accepts local payment methods or free tiers.
++
++### III. User-Centric Design
++Design for non-technical users: avoid jargon, provide short guidance in Russian, and ensure primary flows work on mobile. Default journeys MUST allow a user to find and attempt to use a relevant tool within two clicks from landing (select category → see action steps). Empty/error states MUST propose clear next steps instead of technical messages.
++
++### IV. Transparency of Data
++Each tool entry MUST state: availability status (e.g., “works via VPN only”), pricing model (free tier, trial, paid), access requirements (account, phone/ID, payment), and notable limitations. List the date of last validation for availability/pricing. Unknown facts MUST be marked as “Не проверено” rather than omitted.
++
++### V. Moderated Community Contribution
++Community suggestions are welcome but NEVER auto-published. All edits and new tool proposals go through manual review with a human approver, recorded decision, and reasons for rejection when applicable. Provide users a clear path to flag issues, but moderation queues MUST stay human-driven.
++
++### VI. Incremental Development
++Ship in small, testable slices that deliver user value (e.g., a single curated category with verified tools) before expanding. Defer speculative features until a prior increment is validated. Each release MUST preserve existing user journeys; regressions to clarity, transparency, or Russian accessibility are not allowed.
++
++### VII. Frontend-Only Independence
++The platform MUST run without mandatory backend dependencies in early/mid stages: static or edge-hosted data sources, client-side filtering, and static moderation queues are acceptable. Progressive enhancement is allowed, but core browsing and transparency data MUST remain available offline-capable or from static hosting.
++
++## Platform Scope & Constraints
++
++- Audience: students, designers, developers, creators, and everyday users exploring AI tools.
++- Scope: AI tools catalog with guided access steps; not a news portal or education site.
++- Content boundaries: no volume race; favor curated, verified listings with Russian-language guidance.
++- Accessibility: Russian copy by default; optimize for low-latency access under VPN/limited bandwidth.
++- Data hygiene: unverified claims are labeled; regional restrictions are explicitly shown.
++
++## Development Workflow & Quality Gates
++
++- Discovery flows MUST remain two-click simple (landing → category → actionable tool list).
++- Each feature spec MUST state how it preserves Russian-market relevance and transparency fields.
++- Copy reviews check for jargon and ensure Russian-first phrasing with plain guidance.
++- Releases require a check that community contributions remain human-moderated and cannot bypass review.
++- No feature ships without an incremental MVP slice demonstrable without backend reliance.
++
++## Governance
++
++- This constitution supersedes conflicting practices. The project lead approves amendments after contributor input.
++- Amendment procedure: draft change → review against principles → lead approval → version bump with change log and date.
++- Versioning: semantic. MAJOR for principle redefinitions/removals; MINOR for new principles/sections; PATCH for clarifications.
++- Compliance: every PR/plan/spec MUST document constitution alignment in “Constitution Check”; reviewers block merges on violations.
++- Documentation links: runtime guidance in repo MUST mirror principles; outdated guidance triggers a PATCH amendment or cleanup task.
++
++**Version**: 1.0.0 | **Ratified**: 2025-12-13 | **Last Amended**: 2025-12-13
+*** End Patch
+2025-12-12T21:49:39.614584Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: .specify/templates/plan-template.md
+@@
+-## Constitution Check
+-
+-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+-
+-[Gates determined based on constitution file]
++## Constitution Check
++
++*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
++
++- Clarity: Plan keeps navigation/copy minimal; no added surface area without explicit user value.
++- Russian relevance: Scenarios list VPN/region/payment constraints and Russian-language coverage.
++- Transparency: Data model includes availability, pricing, access requirements, and validation dates.
++- Moderation: Community input flows remain human-approved; no auto-publish paths introduced.
++- Incremental delivery: Defines the MVP slice and how it ships without backend reliance.
++- Frontend independence: Confirms static/edge-friendly approach for browsing and transparency data.
+*** End Patch
+2025-12-12T21:49:47.548811Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: .specify/templates/spec-template.md
+@@
+-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
++  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+   Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+   you should still have a viable MVP (Minimum Viable Product) that delivers value.
+   
+   Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+   Think of each story as a standalone slice of functionality that can be:
+@@
+   - Developed independently
+   - Tested independently
+   - Deployed independently
+   - Demonstrated to users independently
++
++  Constitution alignment: prefer two-click discovery flows, Russian-first copy, and explicit handling
++  of VPN/region/payment constraints in each story.
+ -->
+*** End Patch
+2025-12-12T21:49:55.853805Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: .specify/templates/spec-template.md
+@@
+-### Functional Requirements
+-
+-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
++### Functional Requirements
++
++- **FR-001**: Catalog MUST let users reach a relevant tool in ≤2 clicks (landing → category → tool list).
++- **FR-002**: Each tool entry MUST show availability (VPN/region), pricing model, access needs, and last validation date.
++- **FR-003**: Filters/search MUST support Russian users’ constraints (VPN-free options, Russian UI, local payments).
++- **FR-004**: Community submissions MUST enter a human moderation queue; no auto-publish path.
++- **FR-005**: Core browsing MUST function without a dedicated backend (static/edge-friendly data allowed).
+*** End Patch
+2025-12-12T21:49:59.618185Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/templates/spec-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T21:50:05.619410Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: .specify/templates/tasks-template.md
+@@
+ **Input**: Design documents from `/specs/[###-feature-name]/`
+ **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+ 
+ **Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+ 
+ **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
++
++**Constitution guardrails**: keep tasks focused on two-click discovery, Russian-first copy, transparent tool data
++(availability/pricing/access/validation date), human-moderated submissions, and frontend/edge-friendly delivery.
+*** End Patch
+2025-12-12T21:50:10.200007Z  INFO ToolCall: update_plan {"explanation":"Constitution drafted to v1.0.0 and updated plan/spec/tasks templates to align with new principles and workflows.","plan":[{"status":"completed","step":"Review constitution template placeholders and gather project context/principles from user input and repo docs"},{"status":"completed","step":"Draft updated constitution with filled principles/sections, decide version bump and dates"},{"status":"completed","step":"Align templates and guidance docs with new constitution and finalize sync impact report"}]}
+2025-12-12T21:50:13.223825Z  INFO ToolCall: shell_command {"command":"sed -n '1,240p' .specify/memory/constitution.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:02:18.289257Z  INFO spawning ghost snapshot task
+2025-12-12T22:02:18.355996Z  INFO ghost snapshot blocking task finished
+2025-12-12T22:02:18.356134Z  INFO ghost commit captured: fdb5926ed6f1dd12c6c87d9f30d15749cae63b72
+2025-12-12T22:02:18.356174Z  INFO ghost snapshot gate marked ready
+2025-12-12T22:02:22.376418Z  INFO ToolCall: shell_command {"command":"git fetch --all --prune","workdir":"/home/termenater/ai-catalog","timeout_ms":120000}
+2025-12-12T22:02:27.845771Z  INFO ToolCall: shell_command {"command":"git ls-remote --heads origin | grep -E 'refs/heads/[0-9]+-header-footer-theme$' || true","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:02:34.232370Z  INFO ToolCall: shell_command {"command":"git branch | grep -E '^[* ]*[0-9]+-header-footer-theme$' || true","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:02:37.541482Z  INFO ToolCall: shell_command {"command":"ls specs","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:02:41.348959Z  INFO ToolCall: shell_command {"command":"ls .specify/scripts/bash","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:02:46.142780Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' .specify/scripts/bash/create-new-feature.sh","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:02:50.690081Z  INFO ToolCall: shell_command {"command":".specify/scripts/bash/create-new-feature.sh --json --number 001 --short-name \"header-footer-theme\" \"footer и header Хедер с логотипом, кнопками “Войти” и “Избранное”, адаптация под мобильные размеры. Футер с базовой инфой (например, о проекте, ссылки на соцсети) и переключателем темы (светлая/тёмная).\"","workdir":"/home/termenater/ai-catalog","timeout_ms":120000}
+2025-12-12T22:02:55.632594Z  INFO ToolCall: shell_command {"command":"sed -n '1,200p' specs/001-header-footer-theme/spec.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:03:54.101408Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-header-footer-theme/spec.md
+@@
+-# Feature Specification: [FEATURE NAME]
+-
+-**Feature Branch**: `[###-feature-name]`  
+-**Created**: [DATE]  
+-**Status**: Draft  
+-**Input**: User description: "$ARGUMENTS"
++# Feature Specification: Header & Footer with Theme Toggle
++
++**Feature Branch**: `001-header-footer-theme`  
++**Created**: 2025-12-13  
++**Status**: Draft  
++**Input**: User description: "footer и header Хедер с логотипом, кнопками “Войти” и “Избранное”, адаптация под мобильные размеры. Футер с базовой инфой (например, о проекте, ссылки на соцсети) и переключателем темы (светлая/тёмная)."
+@@
+-### User Story 1 - [Brief Title] (Priority: P1)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
++### User Story 1 - Быстрый доступ к навигации (Priority: P1)
++
++Гость видит в шапке логотип (как ссылка на главную), кнопки «Войти» и «Избранное», и может ими воспользоваться без поиска по странице.
++
++**Why this priority**: Хедер — основной вход для возврата на главную и перехода к авторизации/избранному; нужен с первого релиза.
++
++**Independent Test**: Открыть любую страницу и проверить, что все элементы хедера видны и кликабельны на десктопе и мобильном без горизонтальной прокрутки.
++
++**Acceptance Scenarios**:
++
++1. **Given** пользователь на любой странице, **When** жмет логотип, **Then** попадает на главную без ошибок.
++2. **Given** пользователь на мобильном, **When** жмет «Войти» или «Избранное», **Then** видит переход к соответствующему экрану/маршруту без перекрытий интерфейса.
+ 
+ ---
+ 
+-### User Story 2 - [Brief Title] (Priority: P2)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
++### User Story 2 - Понятный футер с инфо и темой (Priority: P2)
++
++Гость на любой странице находит футер с краткой информацией о проекте, ссылками на соцсети/контакты и переключателем темы (светлая/тёмная).
++
++**Why this priority**: Футер даёт доверие и быстрые контакты; переключатель темы нужен для комфортного чтения.
++
++**Independent Test**: Прокрутить до футера и убедиться, что инфо-блок читается на русском, ссылки ведут на заявленные адреса, а переключатель меняет тему и остается доступным.
++
++**Acceptance Scenarios**:
++
++1. **Given** пользователь внизу страницы, **When** выбирает «Тёмная» или «Светлая», **Then** вся страница отображается в выбранной теме и состояние сохраняется в рамках визита.
++2. **Given** футер отображён, **When** пользователь жмет на соцссылку, **Then** открывается соответствующий профиль/канал с понятным названием ссылки.
+ 
+ ---
+ 
+-### User Story 3 - [Brief Title] (Priority: P3)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
++### User Story 3 - Адаптация под мобильные размеры (Priority: P3)
++
++Мобильный пользователь (малый экран) видит хедер и футер без налезаний: элементы читаемы, тапы точны, текст не обрезан.
++
++**Why this priority**: Основная аудитория может быть на телефонах; ошибки в адаптиве делают навигацию невозможной.
++
++**Independent Test**: Открыть страницу на ширине до 320 px, проверить, что хедер/футер остаются видимыми, кнопки и переключатель темы кликабельны, текст не ломается.
++
++**Acceptance Scenarios**:
++
++1. **Given** ширина экрана ≤320 px, **When** страница загружена, **Then** логотип и кнопки хедера видимы без горизонтального скролла.
++2. **Given** ширина экрана ≤320 px, **When** пользователь использует переключатель темы в футере, **Then** он достигается одним тапом и не перекрывается другими элементами.
+@@
+-### Edge Cases
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right edge cases.
+--->
+-
+-- What happens when [boundary condition]?
+-- How does system handle [error scenario]?
++### Edge Cases
++
++- Очень длинное название проекта или логотип с нетипичным соотношением сторон — хедер не должен ломать верстку.
++- Узкие экраны (<320 px) и увеличенный шрифт в ОС — элементы остаются кликабельны и не перекрываются.
++- Отсутствующие или временно недоступные ссылки соцсетей — футер показывает понятный статус и не ведет на битые страницы.
++- Переключение темы в офлайн-режиме — выбор все равно применяется локально в рамках визита.
+@@
+-### Functional Requirements
+-
+-- **FR-001**: Catalog MUST let users reach a relevant tool in ≤2 clicks (landing → category → tool list).
+-- **FR-002**: Each tool entry MUST show availability (VPN/region), pricing model, access needs, and last validation date.
+-- **FR-003**: Filters/search MUST support Russian users’ constraints (VPN-free options, Russian UI, local payments).
+-- **FR-004**: Community submissions MUST enter a human moderation queue; no auto-publish path.
+-- **FR-005**: Core browsing MUST function without a dedicated backend (static/edge-friendly data allowed).
+-
+-*Example of marking unclear requirements:*
+-
+-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
++### Functional Requirements
++
++- **FR-001**: Хедер показывает логотип-ссылку на главную и кнопки «Войти» и «Избранное» на всех страницах; элементы видимы и кликабельны на десктопе и мобильных.
++- **FR-002**: Тексты хедера/футера — на русском; элементы имеют понятные подписи/aria для экранных считывателей.
++- **FR-003**: Адаптивность: при ширине ≤768 px хедер и футер перестраиваются без горизонтального скролла; минимальный размер тапа — не менее 44x44 px.
++- **FR-004**: Футер содержит краткое описание проекта, ссылки на соцсети/контакты, заметный переход к политике/условиям (если применимо), без перегруза контентом.
++- **FR-005**: Переключатель темы в футере позволяет выбрать светлую/тёмную тему; выбор отражается на всей странице и сохраняется в рамках пользовательской сессии.
++- **FR-006**: Хедер/футер работают без зависимости от бэкенда: при отсутствии авторизации кнопки ведут на страницы входа/избранного или показывают дружественное сообщение без ошибок.
++- **FR-007**: Состояния недоступности (например, не загружен логотип или нет соцссылок) отображаются аккуратно: используются плейсхолдеры/текст «Не указано», без разъезда верстки.
+@@
+-### Key Entities *(include if feature involves data)*
+-
+-- **[Entity 1]**: [What it represents, key attributes without implementation]
+-- **[Entity 2]**: [What it represents, relationships to other entities]
++### Key Entities *(include if feature involves data)*
++
++- **Header Block**: Содержит логотип-ссылку и кнопки «Войти»/«Избранное»; адаптивные стили/состояния доступности.
++- **Footer Block**: Краткое описание проекта, ссылки на соцсети/контакты, вспомогательные ссылки, переключатель темы.
++- **Theme Preference**: Пользовательский выбор «Светлая»/«Тёмная», сохраняемый на время визита и применяемый ко всем видимым элементам страницы.
+@@
+-### Measurable Outcomes
+-
+-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
++### Measurable Outcomes
++
++- **SC-001**: 95% пользователей находят и жмут «Войти» или «Избранное» за ≤3 секунды после загрузки страницы на десктопе и мобильном.
++- **SC-002**: На ширине ≤320 px все элементы хедера/футера остаются видимыми без горизонтального скролла в 100% проверенных экранов.
++- **SC-003**: 90% пользователей успешно переключают тему с первого действия; визуальное обновление происходит ≤1 секунды.
++- **SC-004**: Все соц/контактные ссылки в футере ведут на заявленные адреса (0% битых ссылок в проверке релиза).
++
++## Assumptions
++
++- Страницы для «Войти» и «Избранное» существуют или будут предоставлены как маршруты; хедер только направляет к ним.
++- Тема ограничена светлой и тёмной; если системная тема недоступна, по умолчанию используется светлая.
++- Контент для описания проекта и соцссылок предоставляется редактором; если ссылка отсутствует, она не отображается или показывается «Не указано».
+*** End Patch
+2025-12-12T22:03:57.649785Z  INFO ToolCall: shell_command {"command":"mkdir -p specs/001-header-footer-theme/checklists","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:04:07.664355Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-header-footer-theme/checklists/requirements.md
++# Specification Quality Checklist: Header & Footer with Theme Toggle
++
++**Purpose**: Validate specification completeness and quality before proceeding to planning  
++**Created**: 2025-12-13  
++**Feature**: specs/001-header-footer-theme/spec.md
++
++## Content Quality
++
++- [x] No implementation details (languages, frameworks, APIs)
++- [x] Focused on user value and business needs
++- [x] Written for non-technical stakeholders
++- [x] All mandatory sections completed
++
++## Requirement Completeness
++
++- [x] No [NEEDS CLARIFICATION] markers remain
++- [x] Requirements are testable and unambiguous
++- [x] Success criteria are measurable
++- [x] Success criteria are technology-agnostic (no implementation details)
++- [x] All acceptance scenarios are defined
++- [x] Edge cases are identified
++- [x] Scope is clearly bounded
++- [x] Dependencies and assumptions identified
++
++## Feature Readiness
++
++- [x] All functional requirements have clear acceptance criteria
++- [x] User scenarios cover primary flows
++- [x] Feature meets measurable outcomes defined in Success Criteria
++- [x] No implementation details leak into specification
++
++## Notes
++
++- Все пункты пройдены; переход к `/speckit.plan` возможен.
+*** End Patch
+2025-12-12T22:21:36.278405Z  INFO Shutting down Codex instance
+2025-12-12T22:24:08.234365Z  INFO spawning ghost snapshot task
+2025-12-12T22:24:08.294329Z  INFO ghost snapshot blocking task finished
+2025-12-12T22:24:08.294612Z  INFO ghost commit captured: c4c05b9b318b32e8d918c69b9a1d200810ecb56e
+2025-12-12T22:24:08.294748Z  INFO ghost snapshot gate marked ready
+2025-12-12T22:24:10.838147Z  INFO ToolCall: shell_command {"command":".specify/scripts/bash/setup-plan.sh --json","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:12.874350Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/spec.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:15.486467Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/.specify/memory/constitution.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:17.618326Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:24.744461Z  INFO ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Fill implementation plan sections (summary, technical context, constitution check, project structure) based on spec/constitution"},{"status":"pending","step":"Phase 0: create research.md resolving unknowns/best practices"},{"status":"pending","step":"Phase 1: create data-model.md, contracts/, quickstart.md; run agent context update; recheck constitution"}], "explanation":"Following speckit plan workflow before design and artifacts creation."}
+2025-12-12T22:24:27.544159Z  INFO ToolCall: shell_command {"command":"ls","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:30.835330Z  INFO ToolCall: shell_command {"command":"cat package.json","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:33.182140Z  INFO ToolCall: shell_command {"command":"ls src","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:35.159901Z  INFO ToolCall: shell_command {"command":"ls src/app","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:43.187912Z  INFO ToolCall: shell_command {"command":"ls src/components","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:44.911437Z  INFO ToolCall: shell_command {"command":"ls src/components/ui","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:47.464041Z  INFO ToolCall: shell_command {"command":"ls src/lib","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:24:52.777997Z  INFO ToolCall: shell_command {"command":"date +%Y-%m-%d","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:25:26.227758Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md
+@@
+-# Implementation Plan: [FEATURE]
+-
+-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
++# Implementation Plan: Header & Footer with Theme Toggle
++
++**Branch**: `001-header-footer-theme` | **Date**: 2025-12-13 | **Spec**: /home/termenater/ai-catalog/specs/001-header-footer-theme/spec.md
++**Input**: Feature specification from `/specs/001-header-footer-theme/spec.md`
+@@
+-## Summary
+-
+-[Extract from feature spec: primary requirement + technical approach from research]
++## Summary
++
++Implement a responsive header (логотип-ссылка на главную + кнопки «Войти»/«Избранное») and footer (краткое описание, соц/контактные ссылки, переключатель темы) for the static Next.js 16 app. Default theme follows `prefers-color-scheme`; user toggle in the footer switches light/dark instantly across the page and persists for the session without backend storage. Tailwind CSS 4 + shadcn/ui (Radix-based) components and client-side state only; Russian-first copy and accessible focus/aria.
+@@
+-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+-**Project Type**: [single/web/mobile - determines source structure]  
+-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
++**Language/Version**: TypeScript, Next.js 16 (App Router), React 19  
++**Primary Dependencies**: Tailwind CSS 4, shadcn/ui (Radix primitives), lucide-react icons, clsx/cva utilities  
++**Storage**: N/A (static assets + client-side theme memory)  
++**Testing**: ESLint (configured); UI/e2e automation NEEDS CLARIFICATION (manual responsive/accessibility checks planned)  
++**Target Platform**: Static/edge-hostable web (Next.js app directory)  
++**Project Type**: Single web frontend (no backend)  
++**Performance Goals**: Theme toggle re-render <1s; no layout shift; no horizontal scroll at ≤320 px  
++**Constraints**: No backend calls; respect system `prefers-color-scheme`; keep tap targets ≥44px; Russian copy/aria  
++**Scale/Scope**: Site-wide header/footer components reused on all pages; mobile-first layouts
+@@
+-- Clarity: Plan keeps navigation/copy minimal; no added surface area without explicit user value.
+-- Russian relevance: Scenarios list VPN/region/payment constraints and Russian-language coverage.
+-- Transparency: Data model includes availability, pricing, access requirements, and validation dates.
+-- Moderation: Community input flows remain human-approved; no auto-publish paths introduced.
+-- Incremental delivery: Defines the MVP slice and how it ships without backend reliance.
+-- Frontend independence: Confirms static/edge-friendly approach for browsing and transparency data.
++- Clarity: Navigation limited to логотип + 2 CTA; concise footer copy; focus states and aria kept simple.
++- Russian relevance: All labels/tooltips in Russian; footer can surface region/VPN/payment notices alongside соцссылки.
++- Transparency: Missing links display «Не указано» placeholders to avoid silent omissions.
++- Moderation: No community inputs added; existing content remains static/manual.
++- Incremental delivery: MVP is header/footer + theme toggle; page content unchanged; shippable without backend.
++- Frontend independence: Pure client-side theme state; works in static export/edge without server persistence.
+@@
+-```text
+-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+-src/
+-├── models/
+-├── services/
+-├── cli/
+-└── lib/
+-
+-tests/
+-├── contract/
+-├── integration/
+-└── unit/
+-
+-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+-backend/
+-├── src/
+-│   ├── models/
+-│   ├── services/
+-│   └── api/
+-└── tests/
+-
+-frontend/
+-├── src/
+-│   ├── components/
+-│   ├── pages/
+-│   └── services/
+-└── tests/
+-
+-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+-api/
+-└── [same as backend above]
+-
+-ios/ or android/
+-└── [platform-specific structure: feature modules, UI flows, platform tests]
+-```
+-
+-**Structure Decision**: [Document the selected structure and reference the real
+-directories captured above]
++```text
++src/
++├── app/
++│   ├── globals.css
++│   ├── layout.tsx
++│   └── page.tsx
++├── components/
++│   └── ui/
++│       ├── button.tsx
++│       ├── card.tsx
++│       ├── dropdown-menu.tsx
++│       └── navigation-menu.tsx
++└── lib/
++    └── utils.ts
++```
++
++**Structure Decision**: Single Next.js App Router project. Header/footer/theme components will live under `src/app` and `src/components` with reuse via shadcn/ui primitives; no backend directories.
+@@
+-| Violation | Why Needed | Simpler Alternative Rejected Because |
+-|-----------|------------|-------------------------------------|
+-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
++| Violation | Why Needed | Simpler Alternative Rejected Because |
++|-----------|------------|-------------------------------------|
++| None | N/A | N/A |
+*** End Patch
+2025-12-12T22:25:47.779667Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/specs/001-header-footer-theme/research.md
++- Decision: Use Playwright smoke checks (header/footer visibility, theme toggle, mobile viewport) plus manual responsive/a11y review for this slice.
++- Rationale: Next.js app is static and UI-only; Playwright is the lightest way to assert navigation/toggle behavior without backend; complements existing ESLint.
++- Alternatives considered: Cypress (heavier setup); no automation (would miss regressions on future header/footer edits).
++
++- Decision: Theme preference defaults to `prefers-color-scheme`, then sessionStorage-backed toggle (per tab) with immediate class application to avoid flash.
++- Rationale: Spec wants session-only persistence; sessionStorage avoids cross-tab bleed and respects visit scope; applying the class on load prevents FOUC.
++- Alternatives considered: localStorage (persists beyond visit); URL/query params (leaks state); cookies (overkill without backend).
++
++- Decision: Keep header layout as simple flex with logo + two CTA buttons; on ≤768px stack or compress spacing so no hamburger needed for 3 items.
++- Rationale: Minimal items fit within 320px when sized; avoids extra interaction depth; maintains clarity and tap targets ≥44px.
++- Alternatives considered: Hamburger/drawer (adds clicks and complexity); horizontal scroll (violates acceptance criteria).
++
++- Decision: Footer copy in Russian with social/contact links using labeled icons/text; show «Не указано» text placeholders when data missing.
++- Rationale: Matches constitution transparency; prevents layout jumps when links absent; keeps content understandable for Russian users.
++- Alternatives considered: Hiding missing links silently (hurts transparency); icon-only links (worse a11y).
++
++- Decision: Theme switch UI uses accessible toggle (aria-pressed or checkbox) with visible labels «Светлая/Тёмная»; include focus rings and 44px min touch area.
++- Rationale: Aligns with a11y/tap-size requirements; shadcn/ui primitives already provide focus management; Russian labels keep clarity.
++- Alternatives considered: Icon-only moon/sun toggle (ambiguous); dropdown selector (extra tap).
+*** End Patch
+2025-12-12T22:25:55.413177Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md
+@@
+-**Testing**: ESLint (configured); UI/e2e automation NEEDS CLARIFICATION (manual responsive/accessibility checks planned)  
++**Testing**: ESLint (configured); Playwright smoke checks for header/footer/theme + manual responsive/accessibility review  
+*** End Patch
+2025-12-12T22:26:35.543543Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/specs/001-header-footer-theme/data-model.md
++# Data Model: Header & Footer with Theme Toggle
++
++## HeaderBlock
++- Fields: `logo` { `label` (ru), `href` (home route), `ariaLabel` }, `actions[]` { `id`: login|favorites, `label` (ru), `href`, `ariaLabel`, `icon` optional }, `layout` { `maxWidth`, `gap`, `align`, `breakpoints` }, `fallback` { `logoText`, `missingLinkLabel` default «Не указано» }.
++- Relationships: Uses `ThemePreference.appliedClass` only for contrast awareness; otherwise independent.
++- Validation: `href` must be relative or https; labels in Russian; tap targets ≥44px; no horizontal scroll at ≤320px; logo/link always present (fallback text if image absent).
++- State: `actions` allow disabled state when route unavailable → show tooltip/text «Не указано» but remain non-clickable.
++
++## FooterBlock
++- Fields: `description` (ru, short), `socialLinks[]` { `name`, `href?`, `status`: active|missing|unverified, `ariaLabel` }, `contact` { `email?`, `messenger?` }, `policyLink?` { `label`, `href` }, `themeToggle` -> `ThemePreference`, `meta` { `updatedAt` text }.
++- Relationships: Embeds `ThemePreference` control; references shared typography/colors from Tailwind theme tokens.
++- Validation: Missing links render «Не указано»; all links open in new tab with `rel="noopener noreferrer"`; ensure readable contrast in both themes; maintain vertical spacing for 320px width.
++- State: `status=missing` shows placeholder text; `status=unverified` appends «(Не проверено)».
++
++## ThemePreference
++- Fields: `effectiveTheme`: light|dark, `source`: system|user, `storageKey`: `ai-catalog-theme`, `persistence`: sessionStorage, `appliedClass`: `data-theme`/`class` on `<html>`, `timestamp?` for debugging display.
++- Relationships: Footer toggle writes to `ThemePreference`; header/footer components read `effectiveTheme` to adjust classes/icons if needed.
++- Validation: Default derives from `prefers-color-scheme`; if JS disabled, default to light; invalid stored values reset to system.
++- State transitions:
++  - On load: read sessionStorage → else `prefers-color-scheme` → set `effectiveTheme` and apply class before paint.
++  - On toggle: switch between light/dark, set `source=user`, persist to sessionStorage, update DOM class immediately.
++  - On session end: storage cleared; new session recalculates from system preference.
+*** End Patch
+2025-12-12T22:26:38.133178Z  INFO ToolCall: shell_command {"command":"ls /home/termenater/ai-catalog/specs/001-header-footer-theme","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:26:40.355254Z  INFO ToolCall: shell_command {"command":"mkdir -p /home/termenater/ai-catalog/specs/001-header-footer-theme/contracts","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:26:58.570306Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/specs/001-header-footer-theme/contracts/header-footer-theme.yaml
++openapi: 3.1.0
++info:
++  title: Header & Footer Navigation + Theme Preference (Frontend-Only)
++  version: 0.1.0
++  description: >
++    Documentation of client-facing routes and hypothetical theme preference API.
++    The current implementation is frontend-only: navigation hits static pages and
++    theme is stored in sessionStorage without network calls. These contracts are
++    reserved for future backend wiring if needed.
++servers:
++  - url: https://ai-catalog.local
++    description: Frontend app (static/edge). API endpoints are not deployed; documented for reference.
++tags:
++  - name: navigation
++    description: Static routes for header CTAs.
++  - name: theme
++    description: Client-managed theme preference (no live backend).
++paths:
++  /login:
++    get:
++      tags: [navigation]
++      summary: Render login page (static route)
++      description: Static page target for header CTA. No API side effects.
++      responses:
++        '200':
++          description: Login page rendered.
++          content:
++            text/html:
++              schema:
++                type: string
++  /favorites:
++    get:
++      tags: [navigation]
++      summary: Render favorites page (static route)
++      description: Static page target for header CTA. No API side effects.
++      responses:
++        '200':
++          description: Favorites page rendered.
++          content:
++            text/html:
++              schema:
++                type: string
++  /api/theme-preference:
++    get:
++      tags: [theme]
++      summary: (Reserved) Read theme preference
++      description: >
++        Frontend currently resolves theme from sessionStorage and system preference
++        without calling this endpoint. If a backend is added, this returns the last
++        saved theme for the session/device.
++      responses:
++        '200':
++          description: Current theme preference.
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/ThemePreference'
++    post:
++      tags: [theme]
++      summary: (Reserved) Save theme preference
++      description: >
++        Frontend currently stores theme in sessionStorage only. This contract is for
++        a future optional API; requests should not be sent until backend exists.
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: '#/components/schemas/ThemePreference'
++      responses:
++        '204':
++          description: Preference accepted (no content).
++components:
++  schemas:
++    ThemePreference:
++      type: object
++      properties:
++        theme:
++          type: string
++          enum: [light, dark]
++        source:
++          type: string
++          enum: [system, user]
++        updatedAt:
++          type: string
++          format: date-time
++          description: Optional timestamp for debugging/analytics.
++      required: [theme, source]
++x-frontend-only: true
+*** End Patch
+2025-12-12T22:27:06.204378Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md
++# Quickstart: Header & Footer with Theme Toggle
++
++## Prereqs
++- Node.js 18+; npm (package-lock present).
++- Browser that respects `prefers-color-scheme` for default theme.
++
++## Run locally
++1) Install deps: `npm install`
++2) Start dev server: `npm run dev` (http://localhost:3000)
++3) Lint: `npm run lint`
++
++## What to verify
++- Header shows логотип (link to `/`), «Войти» → `/login`, «Избранное» → `/favorites`; all tappable at ≤320 px without horizontal scroll.
++- Footer displays RU description + соц/контакт ссылки; missing links render «Не указано».
++- Theme toggle in footer switches light/dark instantly; default follows system theme; choice persists only for the current tab/session.
++
++## Optional automation (planned)
++- Add Playwright for smoke tests (header/footer presence, nav links, theme toggle, 320px viewport): `npm create playwright@latest` → keep headed chromium-only suite; run with `npx playwright test`.
+*** End Patch
+2025-12-12T22:27:10.319874Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md
+@@
+ - Moderation: No community inputs added; existing content remains static/manual.
+ - Incremental delivery: MVP is header/footer + theme toggle; page content unchanged; shippable without backend.
+ - Frontend independence: Pure client-side theme state; works in static export/edge without server persistence.
++
++*Post-Phase 1 re-check*: No new risks identified; transparency placeholders and frontend-only approach retained.
+*** End Patch
+2025-12-12T22:27:13.077317Z  INFO ToolCall: shell_command {"command":"ls /home/termenater/ai-catalog/specs/001-header-footer-theme","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:27:16.833022Z  INFO ToolCall: shell_command {"command":".specify/scripts/bash/update-agent-context.sh codex","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:27:19.738166Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/AGENTS.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:27:25.227199Z  INFO ToolCall: update_plan {"plan":[{"status":"completed","step":"Fill implementation plan sections (summary, technical context, constitution check, project structure) based on spec/constitution"},{"status":"completed","step":"Phase 0: create research.md resolving unknowns/best practices"},{"status":"completed","step":"Phase 1: create data-model.md, contracts/, quickstart.md; run agent context update; recheck constitution"}]}
+2025-12-12T22:32:07.556510Z  INFO spawning ghost snapshot task
+2025-12-12T22:32:07.751817Z  INFO ghost snapshot blocking task finished
+2025-12-12T22:32:07.751984Z  INFO ghost commit captured: 49726b84d9e802f157e9d2f3875dc0936cdf1038
+2025-12-12T22:32:07.752006Z  INFO ghost snapshot gate marked ready
+2025-12-12T22:32:12.243532Z  INFO ToolCall: shell_command {"command":".specify/scripts/bash/check-prerequisites.sh --json","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:32:16.498114Z  INFO ToolCall: shell_command {"command":"cat .specify/templates/tasks-template.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:32:20.182265Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:32:22.939704Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/spec.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:34:03.654019Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
++# Tasks: Header & Footer with Theme Toggle
++
++**Input**: Design documents from `/home/termenater/ai-catalog/specs/001-header-footer-theme/`
++**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
++
++**Tests**: Not explicitly requested in the spec; focus on implementation and manual verification per independent tests below.
++
++**Organization**: Tasks are grouped by user story so each slice ships independently.
++
++## Format: `[ID] [P?] [Story] Description`
++
++- **[P]**: Can run in parallel (different files, no dependencies)
++- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
++- Include exact file paths in descriptions
++
++---
++
++## Phase 1: Setup (Shared Infrastructure)
++
++**Purpose**: Ensure workspace and baseline assets are ready.
++
++- [ ] T001 Install dependencies via package-lock with `npm install` (package-lock.json)
++- [ ] T002 Review spec and plan to align on acceptance and constraints (`/home/termenater/ai-catalog/specs/001-header-footer-theme/spec.md`, `/home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md`)
++- [ ] T003 [P] Inspect existing layout and Tailwind base imports to avoid duplication (`/home/termenater/ai-catalog/src/app/layout.tsx`, `/home/termenater/ai-catalog/src/app/globals.css`)
++
++---
++
++## Phase 2: Foundational (Blocking Prerequisites)
++
++**Purpose**: Core theme and config scaffolding required by all stories.
++
++- [ ] T004 Implement theme preference helper (system default + sessionStorage persistence + validation) in `/home/termenater/ai-catalog/src/lib/theme.ts`
++- [ ] T005 Create `ThemeProvider` that applies theme class to `<html>` and exposes toggle state in `/home/termenater/ai-catalog/src/app/theme-provider.tsx`
++- [ ] T006 [P] Define light/dark CSS variables and base theme styles (background/text/links) under data-theme selectors in `/home/termenater/ai-catalog/src/app/globals.css`
++- [ ] T007 [P] Add shared site config with header actions, footer links, and «Не указано» placeholders in `/home/termenater/ai-catalog/src/lib/site-config.ts`
++- [ ] T008 Update root layout to preload theme before paint and wrap app with `ThemeProvider` in `/home/termenater/ai-catalog/src/app/layout.tsx`
++
++---
++
++## Phase 3: User Story 1 - Быстрый доступ к навигации (Priority: P1) 🎯 MVP
++
++**Goal**: Хедер с логотипом (ссылка на `/`), кнопками «Войти» и «Избранное», видимыми и кликабельными на всех страницах.
++
++**Independent Test**: Открыть любую страницу и убедиться, что логотип и кнопки кликабельны на десктопе и мобильном без горизонтального скролла.
++
++### Implementation for User Story 1
++
++- [ ] T009 [P] [US1] Build `SiteHeader` with logo link + CTA buttons using shadcn/ui primitives in `/home/termenater/ai-catalog/src/components/site-header.tsx`
++- [ ] T010 [US1] Integrate `SiteHeader` into the shared layout with appropriate container spacing in `/home/termenater/ai-catalog/src/app/layout.tsx`
++- [ ] T011 [P] [US1] Add focus rings and ≥44px tap targets for header controls in `/home/termenater/ai-catalog/src/app/globals.css`
++
++**Checkpoint**: Header navigates to home/login/favorites without layout shift.
++
++---
++
++## Phase 4: User Story 2 - Понятный футер с инфо и темой (Priority: P2)
++
++**Goal**: Футер с RU описанием проекта, соц/контакт ссылками и переключателем темы, работающим на всей странице.
++
++**Independent Test**: Внизу страницы ссылки читаемы и ведут по назначению; переключатель темы меняет оформление страницы и сохраняет выбор на время визита.
++
++### Implementation for User Story 2
++
++- [ ] T012 [P] [US2] Implement accessible theme toggle (RU labels, aria-pressed) consuming ThemeProvider in `/home/termenater/ai-catalog/src/components/theme-toggle.tsx`
++- [ ] T013 [US2] Build `SiteFooter` with description, social/contact links, placeholders, and embedded theme toggle in `/home/termenater/ai-catalog/src/components/site-footer.tsx`
++- [ ] T014 [US2] Integrate `SiteFooter` into the shared layout and ensure navigation targets are wired in `/home/termenater/ai-catalog/src/app/layout.tsx`
++- [ ] T015 [P] [US2] Add footer spacing, link states, and default theme backgrounds (light/dark) in `/home/termenater/ai-catalog/src/app/globals.css`
++
++**Checkpoint**: Footer visible on all pages; theme toggle affects entire page and persists per session.
++
++---
++
++## Phase 5: User Story 3 - Адаптация под мобильные размеры (Priority: P3)
++
++**Goal**: Хедер и футер остаются читабельными и без налезаний на ширине ≤320 px; элементы кликабельны одним тапом.
++
++**Independent Test**: При ширине до 320 px нет горизонтального скролла; логотип/кнопки/переключатель темы достижимы и не перекрыты.
++
++### Implementation for User Story 3
++
++- [ ] T016 [P] [US3] Add responsive rules (stacking, gaps, text sizing) for header/footer at ≤768 px and safeguards for 320 px in `/home/termenater/ai-catalog/src/app/globals.css`
++- [ ] T017 [US3] Adjust header/footer components for wrapping long text/logo and CTA spacing at small widths in `/home/termenater/ai-catalog/src/components/site-header.tsx` and `/home/termenater/ai-catalog/src/components/site-footer.tsx`
++- [ ] T018 [P] [US3] Validate mobile view at ≤320 px via browser devtools following `/home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md` checklist
++
++**Checkpoint**: Mobile layout passes 320 px checks without horizontal scroll or hidden controls.
++
++---
++
++## Phase 6: Polish & Cross-Cutting Concerns
++
++**Purpose**: Final consistency, docs, and quality gates.
++
++- [ ] T019 [P] Document theme behavior, placeholders, and manual checks in `/home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md`
++- [ ] T020 Run lint to confirm header/footer/theme changes pass CI expectations in `/home/termenater/ai-catalog/package.json`
++
++---
++
++## Dependencies & Execution Order
++
++- Phase 1 → Phase 2 → User Stories (Phase 3/4/5) → Phase 6.
++- User Story dependencies:
++  - US1 depends on foundational theme/config (T004–T008).
++  - US2 depends on foundational theme/config and header integration readiness; can start after Phase 2 (ideally after T010 to avoid layout conflicts).
++  - US3 depends on header/footer presence (US1/US2) and theme styles (T006/T015) to validate responsive behavior.
++- Tasks marked [P] can run in parallel when touching distinct files and after their prerequisites are satisfied.
++
++## Parallel Execution Examples
++
++- US1: T009 (header component) and T011 (focus/tap CSS) can proceed in parallel once T004–T008 complete; T010 follows to mount header.
++- US2: T012 (toggle component) and T015 (footer styles) in parallel after Phase 2; T013 then T014 to integrate.
++- US3: T016 (CSS breakpoints) and T018 (manual mobile validation setup) in parallel; T017 adjusts components afterward if needed.
++
++## Implementation Strategy
++
++- MVP first: Deliver Phase 1–2 then US1 to ship navigable header; validate independently.
++- Incremental: Add US2 (footer + theme) next; validate theme persistence and links. Finish with US3 responsive refinements.
++- Stop points after each story checkpoint to demo independently; Polish phase only after desired stories are stable.
+*** End Patch
+2025-12-12T22:39:54.981022Z  INFO spawning ghost snapshot task
+2025-12-12T22:39:55.055102Z  INFO ghost snapshot blocking task finished
+2025-12-12T22:39:55.055277Z  INFO ghost commit captured: 72872338878cfd4be3ee29798ae48e8674139efe
+2025-12-12T22:39:55.055300Z  INFO ghost snapshot gate marked ready
+2025-12-12T22:39:57.850589Z  INFO ToolCall: shell_command {"command":".specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:00.545441Z  INFO ToolCall: shell_command {"command":"ls /home/termenater/ai-catalog/specs/001-header-footer-theme/checklists","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:03.385411Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/checklists/requirements.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:07.864781Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:10.667535Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/data-model.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:13.371626Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/contracts/header-footer-theme.yaml","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:15.701651Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/research.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:18.245133Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:20.515849Z  INFO ToolCall: shell_command {"command":"git rev-parse --git-dir 2>/dev/null","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:23.001869Z  INFO ToolCall: shell_command {"command":"ls -a","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:25.892914Z  INFO ToolCall: shell_command {"command":"cat .gitignore","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:30.093134Z  INFO ToolCall: shell_command {"command":"cat eslint.config.mjs","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:30.971313Z  WARN stream disconnected - retrying turn (1/5 in 219ms)...
+2025-12-12T22:40:44.636607Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/src/app/layout.tsx","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:47.475818Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/src/app/globals.css","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:40:52.280797Z  INFO ToolCall: shell_command {"command":"npm install","workdir":"/home/termenater/ai-catalog","timeout_ms":120000}
+2025-12-12T22:41:01.320025Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-**Purpose**: Ensure workspace and baseline assets are ready.
+-
+-- [ ] T001 Install dependencies via package-lock with `npm install` (package-lock.json)
+-- [ ] T002 Review spec and plan to align on acceptance and constraints (`/home/termenater/ai-catalog/specs/001-header-footer-theme/spec.md`, `/home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md`)
+-- [ ] T003 [P] Inspect existing layout and Tailwind base imports to avoid duplication (`/home/termenater/ai-catalog/src/app/layout.tsx`, `/home/termenater/ai-catalog/src/app/globals.css`)
++**Purpose**: Ensure workspace and baseline assets are ready.
++
++- [X] T001 Install dependencies via package-lock with `npm install` (package-lock.json)
++- [X] T002 Review spec and plan to align on acceptance and constraints (`/home/termenater/ai-catalog/specs/001-header-footer-theme/spec.md`, `/home/termenater/ai-catalog/specs/001-header-footer-theme/plan.md`)
++- [X] T003 [P] Inspect existing layout and Tailwind base imports to avoid duplication (`/home/termenater/ai-catalog/src/app/layout.tsx`, `/home/termenater/ai-catalog/src/app/globals.css`)
+*** End Patch
+2025-12-12T22:41:04.103197Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/.eslintignore
++node_modules/
++.next/
++out/
++build/
++coverage/
++dist/
++next-env.d.ts
+*** End Patch
+2025-12-12T22:41:17.786965Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/src/app/page.tsx","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:41:26.548616Z  WARN stream disconnected - retrying turn (1/5 in 208ms)...
+2025-12-12T22:41:43.542354Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/src/components/ui/button.tsx","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:41:53.505521Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/src/lib/theme.ts
++export type ThemeMode = "light" | "dark";
++
++const THEME_STORAGE_KEY = "ai-catalog-theme";
++
++const isValidTheme = (value: unknown): value is ThemeMode =>
++  value === "light" || value === "dark";
++
++export const getStoredTheme = (): ThemeMode | null => {
++  if (typeof window === "undefined") return null;
++  try {
++    const stored = window.sessionStorage.getItem(THEME_STORAGE_KEY);
++    if (!stored) return null;
++    return isValidTheme(stored) ? stored : null;
++  } catch {
++    return null;
++  }
++};
++
++export const getSystemTheme = (): ThemeMode => {
++  if (typeof window === "undefined") return "light";
++  return window.matchMedia("(prefers-color-scheme: dark)").matches
++    ? "dark"
++    : "light";
++};
++
++export const resolveInitialTheme = (): {
++  theme: ThemeMode;
++  source: "system" | "user";
++} => {
++  const stored = getStoredTheme();
++  if (stored) {
++    return { theme: stored, source: "user" };
++  }
++  return { theme: getSystemTheme(), source: "system" };
++};
++
++export const applyThemeClass = (theme: ThemeMode): void => {
++  if (typeof document === "undefined") return;
++  const root = document.documentElement;
++  if (theme === "dark") {
++    root.classList.add("dark");
++  } else {
++    root.classList.remove("dark");
++  }
++  root.dataset.theme = theme;
++};
++
++export const persistTheme = (theme: ThemeMode): void => {
++  if (typeof window === "undefined") return;
++  try {
++    window.sessionStorage.setItem(THEME_STORAGE_KEY, theme);
++  } catch {
++    // Ignore storage errors (e.g., private mode)
++  }
++};
+*** End Patch
+2025-12-12T22:41:54.375307Z  WARN stream disconnected - retrying turn (1/5 in 183ms)...
+2025-12-12T22:41:57.243239Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-**Purpose**: Core theme and config scaffolding required by all stories.
+-
+-- [ ] T004 Implement theme preference helper (system default + sessionStorage persistence + validation) in `/home/termenater/ai-catalog/src/lib/theme.ts`
++**Purpose**: Core theme and config scaffolding required by all stories.
++
++- [X] T004 Implement theme preference helper (system default + sessionStorage persistence + validation) in `/home/termenater/ai-catalog/src/lib/theme.ts`
+*** End Patch
+2025-12-12T22:42:26.789596Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/src/app/theme-provider.tsx
++"use client";
++
++import {
++  createContext,
++  useCallback,
++  useContext,
++  useEffect,
++  useMemo,
++  useRef,
++  useState,
++} from "react";
++
++import {
++  applyThemeClass,
++  getSystemTheme,
++  getStoredTheme,
++  persistTheme,
++  resolveInitialTheme,
++  type ThemeMode,
++} from "@/lib/theme";
++
++type ThemeContextValue = {
++  theme: ThemeMode;
++  source: "system" | "user";
++  setTheme: (theme: ThemeMode) => void;
++  toggleTheme: () => void;
++};
++
++const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
++
++export const useTheme = (): ThemeContextValue => {
++  const value = useContext(ThemeContext);
++  if (!value) throw new Error("useTheme must be used within ThemeProvider");
++  return value;
++};
++
++export function ThemeProvider({ children }: { children: React.ReactNode }) {
++  const [theme, setThemeState] = useState<ThemeMode>(() => {
++    if (typeof document === "undefined") return "light";
++    return document.documentElement.classList.contains("dark")
++      ? "dark"
++      : "light";
++  });
++  const [source, setSource] = useState<"system" | "user">("system");
++  const sourceRef = useRef<"system" | "user">(source);
++
++  const setAndPersist = useCallback((next: ThemeMode) => {
++    setThemeState(next);
++    setSource("user");
++    sourceRef.current = "user";
++    applyThemeClass(next);
++    persistTheme(next);
++  }, []);
++
++  const setFromSystem = useCallback((next: ThemeMode) => {
++    setThemeState(next);
++    setSource("system");
++    sourceRef.current = "system";
++    applyThemeClass(next);
++  }, []);
++
++  useEffect(() => {
++    const { theme: resolvedTheme, source: resolvedSource } =
++      resolveInitialTheme();
++    if (resolvedSource === "user") {
++      setAndPersist(resolvedTheme);
++    } else {
++      setFromSystem(resolvedTheme);
++    }
++
++    const media = window.matchMedia("(prefers-color-scheme: dark)");
++    const handleMedia = (event: MediaQueryListEvent) => {
++      if (sourceRef.current === "system") {
++        const next = event.matches ? "dark" : "light";
++        setFromSystem(next);
++      }
++    };
++
++    if (sourceRef.current === "system") {
++      media.addEventListener("change", handleMedia);
++    }
++
++    return () => {
++      media.removeEventListener("change", handleMedia);
++    };
++  }, [setAndPersist, setFromSystem]);
++
++  const toggleTheme = useCallback(() => {
++    setAndPersist(theme === "dark" ? "light" : "dark");
++  }, [setAndPersist, theme]);
++
++  const setTheme = useCallback(
++    (next: ThemeMode) => setAndPersist(next),
++    [setAndPersist],
++  );
++
++  const value = useMemo(
++    () => ({
++      theme,
++      source,
++      setTheme,
++      toggleTheme,
++    }),
++    [setTheme, theme, source, toggleTheme],
++  );
++
++  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
++}
+*** End Patch
+2025-12-12T22:42:31.435426Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T005 Create `ThemeProvider` that applies theme class to `<html>` and exposes toggle state in `/home/termenater/ai-catalog/src/app/theme-provider.tsx`
++- [X] T005 Create `ThemeProvider` that applies theme class to `<html>` and exposes toggle state in `/home/termenater/ai-catalog/src/app/theme-provider.tsx`
+*** End Patch
+2025-12-12T22:42:44.694225Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/globals.css
+@@
+-:root {
++:root,
++:root[data-theme="light"] {
+@@
+-}
+-
+-.dark {
++:root,
++:root[data-theme="light"] {
++  color-scheme: light;
++}
++
++.dark,
++:root[data-theme="dark"] {
+@@
+-}
++}
++
++.dark,
++:root[data-theme="dark"] {
++  color-scheme: dark;
++}
+*** End Patch
+2025-12-12T22:42:50.072590Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T006 [P] Define light/dark CSS variables and base theme styles (background/text/links) under data-theme selectors in `/home/termenater/ai-catalog/src/app/globals.css`
++- [X] T006 [P] Define light/dark CSS variables and base theme styles (background/text/links) under data-theme selectors in `/home/termenater/ai-catalog/src/app/globals.css`
+*** End Patch
+2025-12-12T22:43:08.619233Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/src/lib/site-config.ts
++export type NavAction = {
++  id: "login" | "favorites";
++  label: string;
++  href: string;
++  ariaLabel?: string;
++};
++
++export type SocialLinkStatus = "active" | "missing" | "unverified";
++
++export type SocialLink = {
++  name: string;
++  href?: string;
++  status: SocialLinkStatus;
++  ariaLabel?: string;
++};
++
++export const MISSING_LABEL = "Не указано";
++
++export const siteConfig = {
++  name: "AI Каталог",
++  description:
++    "Подборка AI-инструментов с понятными шагами доступа и подсказками для РФ. Проект в активной разработке.",
++  header: {
++    logo: {
++      label: "AI Каталог",
++      href: "/",
++      ariaLabel: "На главную",
++    },
++    actions: [
++      {
++        id: "login",
++        label: "Войти",
++        href: "/login",
++        ariaLabel: "Перейти к авторизации",
++      },
++      {
++        id: "favorites",
++        label: "Избранное",
++        href: "/favorites",
++        ariaLabel: "Открыть избранное",
++      },
++    ] satisfies NavAction[],
++    fallback: {
++      logoText: "AI",
++      missingLinkLabel: MISSING_LABEL,
++    },
++  },
++  footer: {
++    description:
++      "Мы собираем рабочие AI-инструменты и отмечаем требования: VPN, оплата, язык интерфейса.",
++    socialLinks: [
++      {
++        name: "Telegram",
++        href: undefined,
++        status: "missing",
++        ariaLabel: "Ссылка на Telegram: не указано",
++      },
++      {
++        name: "YouTube",
++        href: undefined,
++        status: "missing",
++        ariaLabel: "Ссылка на YouTube: не указано",
++      },
++      {
++        name: "Email",
++        href: "mailto:contact@ai-catalog.local",
++        status: "unverified",
++        ariaLabel: "Написать на email",
++      },
++    ] as const,
++    contact: {
++      email: "contact@ai-catalog.local",
++      messenger: undefined,
++    },
++    policyLink: {
++      label: "Политика и условия",
++      href: "#",
++    },
++    meta: {
++      updatedAt: "2025-12-13",
++    },
++  },
++};
+*** End Patch
+2025-12-12T22:43:12.344949Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T007 [P] Add shared site config with header actions, footer links, and «Не указано» placeholders in `/home/termenater/ai-catalog/src/lib/site-config.ts`
++- [X] T007 [P] Add shared site config with header actions, footer links, and «Не указано» placeholders in `/home/termenater/ai-catalog/src/lib/site-config.ts`
+*** End Patch
+2025-12-12T22:43:26.822028Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/layout.tsx
+@@
+-import type { Metadata } from "next";
+-import { Geist, Geist_Mono } from "next/font/google";
+-import "./globals.css";
++import type { Metadata } from "next";
++import { Geist, Geist_Mono } from "next/font/google";
++import "./globals.css";
++
++import { ThemeProvider } from "./theme-provider";
+ 
+ const geistSans = Geist({
+   variable: "--font-geist-sans",
+   subsets: ["latin"],
+ });
+@@
+ export const metadata: Metadata = {
+-  title: "Create Next App",
+-  description: "Generated by create next app",
++  title: "AI Каталог",
++  description: "Навигация и темы для AI Каталога",
+ };
+ 
+ export default function RootLayout({
+   children,
+ }: Readonly<{
+   children: React.ReactNode;
+ }>) {
+   return (
+-    <html lang="en">
+-      <body
+-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+-      >
+-        {children}
+-      </body>
++    <html lang="ru">
++      <head>
++        <script
++          suppressHydrationWarning
++          dangerouslySetInnerHTML={{
++            __html: `(function() {
++  try {
++    var key = "ai-catalog-theme";
++    var stored = window.sessionStorage.getItem(key);
++    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
++    var theme = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
++    if (theme === "dark") {
++      document.documentElement.classList.add("dark");
++    } else {
++      document.documentElement.classList.remove("dark");
++    }
++    document.documentElement.dataset.theme = theme;
++  } catch (e) {}
++})();`,
++          }}
++        />
++      </head>
++      <body
++        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
++      >
++        <ThemeProvider>{children}</ThemeProvider>
++      </body>
+     </html>
+   );
+ }
+*** End Patch
+2025-12-12T22:43:31.191284Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T008 Update root layout to preload theme before paint and wrap app with `ThemeProvider` in `/home/termenater/ai-catalog/src/app/layout.tsx`
++- [X] T008 Update root layout to preload theme before paint and wrap app with `ThemeProvider` in `/home/termenater/ai-catalog/src/app/layout.tsx`
+*** End Patch
+2025-12-12T22:43:32.162963Z  WARN stream disconnected - retrying turn (1/5 in 182ms)...
+2025-12-12T22:43:56.279167Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/src/components/site-header.tsx
++"use client";
++
++import Link from "next/link";
++import { Heart, LogIn } from "lucide-react";
++
++import { Button } from "@/components/ui/button";
++import { MISSING_LABEL, siteConfig } from "@/lib/site-config";
++
++const iconByAction = {
++  login: LogIn,
++  favorites: Heart,
++} as const;
++
++export function SiteHeader() {
++  const { header } = siteConfig;
++
++  return (
++    <header className="site-header border-border/60 bg-card text-foreground">
++      <div className="site-container flex min-h-16 flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:gap-4">
++        <Link
++          href={header.logo.href}
++          aria-label={header.logo.ariaLabel ?? header.logo.label}
++          className="group flex min-w-0 items-center gap-2"
++        >
++          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-sm font-semibold tracking-tight transition hover:border-primary sm:size-11">
++            {header.fallback.logoText}
++          </div>
++          <span className="truncate text-base font-semibold leading-tight">
++            {header.logo.label}
++          </span>
++        </Link>
++
++        <nav className="flex flex-1 flex-wrap items-center justify-end gap-2 sm:flex-none sm:gap-3">
++          {header.actions.map((action) => {
++            const Icon = iconByAction[action.id];
++            if (!action.href) {
++              return (
++                <span
++                  key={action.id}
++                  className="min-h-[44px] min-w-[120px] rounded-md border border-dashed border-border/60 px-3 py-2 text-sm text-muted-foreground"
++                  aria-label={header.fallback.missingLinkLabel ?? MISSING_LABEL}
++                >
++                  {header.fallback.missingLinkLabel ?? MISSING_LABEL}
++                </span>
++              );
++            }
++
++            return (
++              <Button
++                key={action.id}
++                asChild
++                variant="outline"
++                size="sm"
++                className="min-h-[44px] flex-1 justify-center px-4 sm:flex-none"
++              >
++                <Link
++                  href={action.href}
++                  prefetch={false}
++                  aria-label={action.ariaLabel ?? action.label}
++                  className="flex items-center gap-2 text-sm font-medium"
++                >
++                  {Icon ? <Icon className="size-4" aria-hidden /> : null}
++                  <span>{action.label}</span>
++                </Link>
++              </Button>
++            );
++          })}
++        </nav>
++      </div>
++    </header>
++  );
++}
+*** End Patch
+2025-12-12T22:43:59.513386Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-### Implementation for User Story 1
+-
+-- [ ] T009 [P] [US1] Build `SiteHeader` with logo link + CTA buttons using shadcn/ui primitives in `/home/termenater/ai-catalog/src/components/site-header.tsx`
++### Implementation for User Story 1
++
++- [X] T009 [P] [US1] Build `SiteHeader` with logo link + CTA buttons using shadcn/ui primitives in `/home/termenater/ai-catalog/src/components/site-header.tsx`
+*** End Patch
+2025-12-12T22:44:08.612691Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/layout.tsx
+@@
+-import { ThemeProvider } from "./theme-provider";
++import { ThemeProvider } from "./theme-provider";
++import { SiteHeader } from "@/components/site-header";
+ 
+ const geistSans = Geist({
+   variable: "--font-geist-sans",
+   subsets: ["latin"],
+ });
+@@
+       </head>
+       <body
+         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+       >
+-        <ThemeProvider>{children}</ThemeProvider>
++        <ThemeProvider>
++          <div className="app-shell">
++            <SiteHeader />
++            <main className="site-main" role="main">
++              {children}
++            </main>
++          </div>
++        </ThemeProvider>
+       </body>
+     </html>
+   );
+ }
+*** End Patch
+2025-12-12T22:44:12.560118Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T010 [US1] Integrate `SiteHeader` into the shared layout with appropriate container spacing in `/home/termenater/ai-catalog/src/app/layout.tsx`
++- [X] T010 [US1] Integrate `SiteHeader` into the shared layout with appropriate container spacing in `/home/termenater/ai-catalog/src/app/layout.tsx`
+*** End Patch
+2025-12-12T22:44:29.484690Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/globals.css
+@@
+ @layer base {
+   * {
+     @apply border-border outline-ring/50;
+   }
+   body {
+     @apply bg-background text-foreground;
+   }
++  a:focus-visible {
++    outline: 2px solid var(--ring);
++    outline-offset: 3px;
++    border-radius: 10px;
++  }
++}
++
++@layer components {
++  .app-shell {
++    min-height: 100vh;
++    background: var(--background);
++    color: var(--foreground);
++    display: flex;
++    flex-direction: column;
++  }
++
++  .site-container {
++    width: 100%;
++    max-width: 1100px;
++    margin: 0 auto;
++    padding: 0 1rem;
++  }
++
++  .site-header {
++    position: sticky;
++    top: 0;
++    z-index: 20;
++    backdrop-filter: blur(8px);
++    border-bottom: 1px solid var(--border);
++  }
++
++  .site-main {
++    flex: 1 0 auto;
++    width: 100%;
++    padding: 2rem 0 3rem;
++  }
++
++  .site-header a,
++  .site-header button {
++    min-height: 44px;
++  }
+ }
+*** End Patch
+2025-12-12T22:44:32.165922Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T011 [P] [US1] Add focus rings and ≥44px tap targets for header controls in `/home/termenater/ai-catalog/src/app/globals.css`
++- [X] T011 [P] [US1] Add focus rings and ≥44px tap targets for header controls in `/home/termenater/ai-catalog/src/app/globals.css`
+*** End Patch
+2025-12-12T22:44:43.183243Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/src/components/theme-toggle.tsx
++"use client";
++
++import { Moon, Sun } from "lucide-react";
++
++import { Button } from "@/components/ui/button";
++import { useTheme } from "@/app/theme-provider";
++
++export function ThemeToggle() {
++  const { theme, toggleTheme } = useTheme();
++  const isDark = theme === "dark";
++
++  return (
++    <Button
++      type="button"
++      variant="outline"
++      size="sm"
++      onClick={toggleTheme}
++      aria-pressed={isDark}
++      aria-label={`Переключить тему: ${
++        isDark ? "Тёмная" : "Светлая"
++      }`}
++      className="theme-toggle min-h-[44px] px-4"
++    >
++      {isDark ? (
++        <Moon className="size-4" aria-hidden />
++      ) : (
++        <Sun className="size-4" aria-hidden />
++      )}
++      <span className="text-sm font-medium">
++        {isDark ? "Тёмная" : "Светлая"}
++      </span>
++    </Button>
++  );
++}
+*** End Patch
+2025-12-12T22:44:47.601005Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-### Implementation for User Story 2
+-
+-- [ ] T012 [P] [US2] Implement accessible theme toggle (RU labels, aria-pressed) consuming ThemeProvider in `/home/termenater/ai-catalog/src/components/theme-toggle.tsx`
++### Implementation for User Story 2
++
++- [X] T012 [P] [US2] Implement accessible theme toggle (RU labels, aria-pressed) consuming ThemeProvider in `/home/termenater/ai-catalog/src/components/theme-toggle.tsx`
+*** End Patch
+2025-12-12T22:45:10.381564Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Add File: /home/termenater/ai-catalog/src/components/site-footer.tsx
++"use client";
++
++import Link from "next/link";
++import { ExternalLink, Mail } from "lucide-react";
++
++import { ThemeToggle } from "@/components/theme-toggle";
++import { MISSING_LABEL, siteConfig } from "@/lib/site-config";
++
++const statusLabel = {
++  missing: "не указано",
++  unverified: "не проверено",
++  active: "",
++} as const;
++
++export function SiteFooter() {
++  const { footer } = siteConfig;
++
++  return (
++    <footer className="site-footer border-t border-border/60 bg-card text-foreground">
++      <div className="site-container grid gap-6 py-8 sm:grid-cols-3 sm:items-start sm:gap-8">
++        <div className="space-y-3">
++          <h2 className="text-base font-semibold leading-tight">О проекте</h2>
++          <p className="text-sm leading-relaxed text-muted-foreground">
++            {footer.description}
++          </p>
++        </div>
++
++        <div className="space-y-3">
++          <h2 className="text-base font-semibold leading-tight">Контакты</h2>
++          <ul className="flex flex-wrap gap-2 text-sm">
++            {footer.socialLinks.map((link) => {
++              const badge =
++                link.status === "active"
++                  ? ""
++                  : ` (${statusLabel[link.status]})`;
++
++              if (!link.href) {
++                return (
++                  <li
++                    key={link.name}
++                    className="inline-flex min-h-[36px] items-center rounded-full border border-dashed border-border/70 px-3 text-muted-foreground"
++                    aria-label={link.ariaLabel ?? MISSING_LABEL}
++                  >
++                    {link.name}: {MISSING_LABEL}
++                  </li>
++                );
++              }
++
++              const isEmail = link.href.startsWith("mailto:");
++              const Comp = isEmail ? "a" : "a";
++
++              return (
++                <li key={link.name}>
++                  <Comp
++                    href={link.href}
++                    className="inline-flex min-h-[36px] items-center gap-1 rounded-full border border-border/70 px-3 transition hover:border-primary hover:text-primary"
++                    target={isEmail ? undefined : "_blank"}
++                    rel={isEmail ? undefined : "noreferrer noopener"}
++                    aria-label={link.ariaLabel ?? link.name}
++                  >
++                    {isEmail ? (
++                      <Mail className="size-4" aria-hidden />
++                    ) : (
++                      <ExternalLink className="size-4" aria-hidden />
++                    )}
++                    <span>
++                      {link.name}
++                      {badge}
++                    </span>
++                  </Comp>
++                </li>
++              );
++            })}
++          </ul>
++        </div>
++
++        <div className="space-y-3">
++          <h2 className="text-base font-semibold leading-tight">Тема</h2>
++          <ThemeToggle />
++          <p className="text-xs text-muted-foreground">
++            Выбор сохраняется в текущей вкладке и сбрасывается при новом визите.
++          </p>
++        </div>
++      </div>
++
++      <div className="site-container flex flex-wrap items-center justify-between gap-3 border-t border-border/50 py-3 text-xs text-muted-foreground">
++        <div className="inline-flex items-center gap-2">
++          <span>Обновлено:</span>
++          <span className="font-medium text-foreground">
++            {footer.meta.updatedAt}
++          </span>
++        </div>
++        {footer.policyLink?.href ? (
++          <Link
++            href={footer.policyLink.href}
++            prefetch={false}
++            className="inline-flex items-center gap-1 font-medium text-foreground hover:text-primary"
++          >
++            {footer.policyLink.label}
++          </Link>
++        ) : (
++          <span>{MISSING_LABEL}</span>
++        )}
++      </div>
++    </footer>
++  );
++}
+*** End Patch
+2025-12-12T22:45:15.041516Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T013 [US2] Build `SiteFooter` with description, social/contact links, placeholders, and embedded theme toggle in `/home/termenater/ai-catalog/src/components/site-footer.tsx`
++- [X] T013 [US2] Build `SiteFooter` with description, social/contact links, placeholders, and embedded theme toggle in `/home/termenater/ai-catalog/src/components/site-footer.tsx`
+*** End Patch
+2025-12-12T22:45:20.103116Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/layout.tsx
+@@
+-import { SiteHeader } from "@/components/site-header";
++import { SiteHeader } from "@/components/site-header";
++import { SiteFooter } from "@/components/site-footer";
+@@
+           <div className="app-shell">
+             <SiteHeader />
+             <main className="site-main" role="main">
+               {children}
+             </main>
++            <SiteFooter />
+           </div>
+         </ThemeProvider>
+*** End Patch
+2025-12-12T22:45:26.010139Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T014 [US2] Integrate `SiteFooter` into the shared layout and ensure navigation targets are wired in `/home/termenater/ai-catalog/src/app/layout.tsx`
++- [X] T014 [US2] Integrate `SiteFooter` into the shared layout and ensure navigation targets are wired in `/home/termenater/ai-catalog/src/app/layout.tsx`
+*** End Patch
+2025-12-12T22:45:30.886770Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/globals.css
+@@
+   .site-main {
+     flex: 1 0 auto;
+     width: 100%;
+     padding: 2rem 0 3rem;
+   }
+ 
+   .site-header a,
+   .site-header button {
+     min-height: 44px;
+   }
++
++  .site-footer {
++    background: var(--card);
++  }
++
++  .site-footer a,
++  .site-footer button {
++    min-height: 36px;
++  }
++
++  .theme-toggle {
++    width: 100%;
++    justify-content: center;
++  }
+ }
+*** End Patch
+2025-12-12T22:45:34.798891Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T015 [P] [US2] Add footer spacing, link states, and default theme backgrounds (light/dark) in `/home/termenater/ai-catalog/src/app/globals.css`
++- [X] T015 [P] [US2] Add footer spacing, link states, and default theme backgrounds (light/dark) in `/home/termenater/ai-catalog/src/app/globals.css`
+*** End Patch
+2025-12-12T22:45:35.786220Z  WARN stream disconnected - retrying turn (1/5 in 203ms)...
+2025-12-12T22:45:52.947252Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/globals.css
+@@
+   .theme-toggle {
+     width: 100%;
+     justify-content: center;
+   }
+ }
++
++@media (max-width: 768px) {
++  .site-container {
++    padding-left: 0.875rem;
++    padding-right: 0.875rem;
++  }
++
++  .site-main {
++    padding: 1.5rem 0 2.5rem;
++  }
++
++  .site-header .site-container {
++    align-items: flex-start;
++  }
++
++  .site-header nav {
++    width: 100%;
++  }
++}
++
++@media (max-width: 480px) {
++  .site-container {
++    padding-left: 0.75rem;
++    padding-right: 0.75rem;
++  }
++
++  .site-header .site-container {
++    gap: 0.75rem;
++  }
++
++  .site-header nav {
++    gap: 0.5rem;
++  }
++}
++
++@media (max-width: 360px) {
++  .site-container {
++    padding-left: 0.65rem;
++    padding-right: 0.65rem;
++  }
++
++  .site-header nav {
++    flex-direction: column;
++    align-items: stretch;
++  }
++
++  .theme-toggle {
++    width: 100%;
++  }
++}
+*** End Patch
+2025-12-12T22:45:54.003721Z  WARN stream disconnected - retrying turn (1/5 in 211ms)...
+2025-12-12T22:45:58.305781Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T016 [P] [US3] Add responsive rules (stacking, gaps, text sizing) for header/footer at ≤768 px and safeguards for 320 px in `/home/termenater/ai-catalog/src/app/globals.css`
++- [X] T016 [P] [US3] Add responsive rules (stacking, gaps, text sizing) for header/footer at ≤768 px and safeguards for 320 px in `/home/termenater/ai-catalog/src/app/globals.css`
+*** End Patch
+2025-12-12T22:46:09.891426Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/components/site-header.tsx
+@@
+         <Link
+           href={header.logo.href}
+           aria-label={header.logo.ariaLabel ?? header.logo.label}
+           className="group flex min-w-0 items-center gap-2"
+         >
+@@
+-          <span className="truncate text-base font-semibold leading-tight">
++          <span className="truncate text-base font-semibold leading-tight sm:text-lg">
+             {header.logo.label}
+           </span>
+         </Link>
+ 
+-        <nav className="flex flex-1 flex-wrap items-center justify-end gap-2 sm:flex-none sm:gap-3">
++        <nav className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:flex-none sm:gap-3">
+*** End Patch
+2025-12-12T22:46:16.721587Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/components/site-footer.tsx
+@@
+               if (!link.href) {
+                 return (
+                   <li
+                     key={link.name}
+-                    className="inline-flex min-h-[36px] items-center rounded-full border border-dashed border-border/70 px-3 text-muted-foreground"
++                    className="inline-flex min-h-[36px] max-w-full items-center rounded-full border border-dashed border-border/70 px-3 text-muted-foreground"
+                     aria-label={link.ariaLabel ?? MISSING_LABEL}
+                   >
+                     {link.name}: {MISSING_LABEL}
+                   </li>
+                 );
+@@
+                     className="inline-flex min-h-[36px] items-center gap-1 rounded-full border border-border/70 px-3 transition hover:border-primary hover:text-primary"
+*** End Patch
+2025-12-12T22:46:21.258941Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+-- [ ] T017 [US3] Adjust header/footer components for wrapping long text/logo and CTA spacing at small widths in `/home/termenater/ai-catalog/src/components/site-header.tsx` and `/home/termenater/ai-catalog/src/components/site-footer.tsx`
++- [X] T017 [US3] Adjust header/footer components for wrapping long text/logo and CTA spacing at small widths in `/home/termenater/ai-catalog/src/components/site-header.tsx` and `/home/termenater/ai-catalog/src/components/site-footer.tsx`
+*** End Patch
+2025-12-12T22:46:33.221503Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/src/components/ui/card.tsx","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:46:52.735578Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/page.tsx
+@@
+-import Image from "next/image";
+-
+-export default function Home() {
+-  return (
+-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+-        <Image
+-          className="dark:invert"
+-          src="/next.svg"
+-          alt="Next.js logo"
+-          width={100}
+-          height={20}
+-          priority
+-        />
+-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+-            To get started, edit the page.tsx file.
+-          </h1>
+-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+-            Looking for a starting point or more instructions? Head over to{" "}
+-            <a
+-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+-              className="font-medium text-zinc-950 dark:text-zinc-50"
+-            >
+-              Templates
+-            </a>{" "}
+-            or the{" "}
+-            <a
+-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+-              className="font-medium text-zinc-950 dark:text-zinc-50"
+-            >
+-              Learning
+-            </a>{" "}
+-            center.
+-          </p>
+-        </div>
+-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+-          <a
+-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+-            target="_blank"
+-            rel="noopener noreferrer"
+-          >
+-            <Image
+-              className="dark:invert"
+-              src="/vercel.svg"
+-              alt="Vercel logomark"
+-              width={16}
+-              height={16}
+-            />
+-            Deploy Now
+-          </a>
+-          <a
+-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
+-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+-            target="_blank"
+-            rel="noopener noreferrer"
+-          >
+-            Documentation
+-          </a>
+-        </div>
+-      </main>
+-    </div>
+-  );
+-}
++import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
++
++export default function Home() {
++  return (
++    <div className="site-container flex flex-col gap-10 py-10">
++      <header className="space-y-3">
++        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
++          AI Каталог
++        </p>
++        <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
++          Подборка AI-инструментов с понятными шагами доступа.
++        </h1>
++        <p className="max-w-3xl text-lg text-muted-foreground">
++          Сохраняем прозрачность: отмечаем требования по VPN, оплате и языку интерфейса. Хедер и футер уже адаптированы под мобильные устройства.
++        </p>
++      </header>
++
++      <section className="grid gap-6 sm:grid-cols-2">
++        <Card>
++          <CardHeader>
++            <CardTitle>Навигация</CardTitle>
++            <CardDescription>
++              Логотип ведет на главную, кнопки «Войти» и «Избранное» всегда доступны.
++            </CardDescription>
++          </CardHeader>
++          <CardContent className="text-sm text-muted-foreground">
++            Проверяйте кликабельность на ширине 320 px: элементы остаются в зоне видимости без горизонтального скролла.
++          </CardContent>
++        </Card>
++
++        <Card>
++          <CardHeader>
++            <CardTitle>Тема и футер</CardTitle>
++            <CardDescription>
++              Переключатель «Светлая/Тёмная» меняет оформление на всей странице.
++            </CardDescription>
++          </CardHeader>
++          <CardContent className="text-sm text-muted-foreground">
++            Ссылки на соцсети и контакты показывают статус «Не указано» или «Не проверено», чтобы не скрывать отсутствующие данные.
++          </CardContent>
++        </Card>
++      </section>
++    </div>
++  );
++}
+*** End Patch
+2025-12-12T22:47:01.629890Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md
+@@
+ ## What to verify
+-- Header shows логотип (link to `/`), «Войти» → `/login`, «Избранное» → `/favorites`; all tappable at ≤320 px without horizontal scroll.
+-- Footer displays RU description + соц/контакт ссылки; missing links render «Не указано».
+-- Theme toggle in footer switches light/dark instantly; default follows system theme; choice persists only for the current tab/session.
++- Header shows логотип (link to `/`), «Войти» → `/login`, «Избранное» → `/favorites`; all tappable at ≤320 px without horizontal scroll; header stays visible and focusable.
++- Footer displays RU description + соц/контакт ссылки; missing links render «Не указано» или статус «не проверено».
++- Theme toggle in footer switches light/dark instantly; default follows system theme; выбор сохраняется только в текущей вкладке/сессии.
++- On resize to 320 px: элементы не перекрываются, фокусные состояния видны, текст не обрезан.
+ 
+ ## Optional automation (planned)
+ - Add Playwright for smoke tests (header/footer presence, nav links, theme toggle, 320px viewport): `npm create playwright@latest` → keep headed chromium-only suite; run with `npx playwright test`.
+*** End Patch
+2025-12-12T22:47:05.439005Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+ ## Phase 6: Polish & Cross-Cutting Concerns
+ 
+ **Purpose**: Final consistency, docs, and quality gates.
+ 
+-- [ ] T019 [P] Document theme behavior, placeholders, and manual checks in `/home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md`
+-- [ ] T020 Run lint to confirm header/footer/theme changes pass CI expectations in `/home/termenater/ai-catalog/package.json`
++- [X] T019 [P] Document theme behavior, placeholders, and manual checks in `/home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md`
++- [ ] T020 Run lint to confirm header/footer/theme changes pass CI expectations in `/home/termenater/ai-catalog/package.json`
+*** End Patch
+2025-12-12T22:47:09.505473Z  INFO ToolCall: shell_command {"command":"npm run lint","workdir":"/home/termenater/ai-catalog","timeout_ms":120000}
+2025-12-12T22:47:52.648507Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/theme-provider.tsx
+@@
+-import {
+-  applyThemeClass,
+-  getSystemTheme,
+-  getStoredTheme,
+-  persistTheme,
+-  resolveInitialTheme,
+-  type ThemeMode,
+-} from "@/lib/theme";
++import {
++  applyThemeClass,
++  getStoredTheme,
++  persistTheme,
++  type ThemeMode,
++} from "@/lib/theme";
+@@
+ export function ThemeProvider({ children }: { children: React.ReactNode }) {
+-  const [theme, setThemeState] = useState<ThemeMode>(() => {
+-    if (typeof document === "undefined") return "light";
+-    return document.documentElement.classList.contains("dark")
+-      ? "dark"
+-      : "light";
+-  });
+-  const [source, setSource] = useState<"system" | "user">("system");
++  const [theme, setThemeState] = useState<ThemeMode>(() => {
++    if (typeof document === "undefined") return "light";
++    const datasetTheme = document.documentElement.dataset.theme;
++    if (datasetTheme === "dark" || datasetTheme === "light") {
++      return datasetTheme;
++    }
++    return document.documentElement.classList.contains("dark")
++      ? "dark"
++      : "light";
++  });
++  const [source, setSource] = useState<"system" | "user">(() => {
++    if (typeof window === "undefined") return "system";
++    return getStoredTheme() ? "user" : "system";
++  });
+   const sourceRef = useRef<"system" | "user">(source);
+ 
+   const setAndPersist = useCallback((next: ThemeMode) => {
+     setThemeState(next);
+     setSource("user");
+@@
+-  const setFromSystem = useCallback((next: ThemeMode) => {
+-    setThemeState(next);
+-    setSource("system");
+-    sourceRef.current = "system";
+-    applyThemeClass(next);
+-  }, []);
+-
+   useEffect(() => {
+-    const { theme: resolvedTheme, source: resolvedSource } =
+-      resolveInitialTheme();
+-    if (resolvedSource === "user") {
+-      setAndPersist(resolvedTheme);
+-    } else {
+-      setFromSystem(resolvedTheme);
+-    }
+-
+-    const media = window.matchMedia("(prefers-color-scheme: dark)");
+-    const handleMedia = (event: MediaQueryListEvent) => {
+-      if (sourceRef.current === "system") {
+-        const next = event.matches ? "dark" : "light";
+-        setFromSystem(next);
+-      }
+-    };
+-
+-    if (sourceRef.current === "system") {
+-      media.addEventListener("change", handleMedia);
+-    }
+-
+-    return () => {
+-      media.removeEventListener("change", handleMedia);
+-    };
+-  }, [setAndPersist, setFromSystem]);
++    applyThemeClass(theme);
++    if (source === "user") {
++      persistTheme(theme);
++    }
++    sourceRef.current = source;
++  }, [source, theme]);
++
++  useEffect(() => {
++    const media = window.matchMedia("(prefers-color-scheme: dark)");
++    const handleMedia = (event: MediaQueryListEvent) => {
++      if (sourceRef.current === "system") {
++        setThemeState(event.matches ? "dark" : "light");
++      }
++    };
++
++    media.addEventListener("change", handleMedia);
++    return () => media.removeEventListener("change", handleMedia);
++  }, []);
+@@
+   const toggleTheme = useCallback(() => {
+     setAndPersist(theme === "dark" ? "light" : "dark");
+   }, [setAndPersist, theme]);
+*** End Patch
+2025-12-12T22:47:56.305991Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Delete File: /home/termenater/ai-catalog/.eslintignore
+*** End Patch
+2025-12-12T22:47:57.518551Z  WARN stream disconnected - retrying turn (1/5 in 204ms)...
+2025-12-12T22:48:01.112765Z  INFO ToolCall: shell_command {"command":"cat /home/termenater/ai-catalog/eslint.config.mjs","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:48:06.234880Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/eslint.config.mjs
+@@
+   globalIgnores([
+     // Default ignores of eslint-config-next:
+     ".next/**",
+     "out/**",
+     "build/**",
+     "next-env.d.ts",
++    // Project-specific:
++    "node_modules/**",
++    "coverage/**",
++    "dist/**",
++    "package-lock.json",
+   ]),
+ ]);
+*** End Patch
+2025-12-12T22:48:08.427828Z  INFO ToolCall: shell_command {"command":"npm run lint","workdir":"/home/termenater/ai-catalog","timeout_ms":120000}
+2025-12-12T22:48:18.164352Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/specs/001-header-footer-theme/tasks.md
+@@
+ - [X] T019 [P] Document theme behavior, placeholders, and manual checks in `/home/termenater/ai-catalog/specs/001-header-footer-theme/quickstart.md`
+-- [ ] T020 Run lint to confirm header/footer/theme changes pass CI expectations in `/home/termenater/ai-catalog/package.json`
++- [X] T020 Run lint to confirm header/footer/theme changes pass CI expectations in `/home/termenater/ai-catalog/package.json`
+*** End Patch
+2025-12-12T22:56:47.809801Z  INFO spawning ghost snapshot task
+2025-12-12T22:56:47.941410Z  INFO ghost snapshot blocking task finished
+2025-12-12T22:56:47.941540Z  INFO ghost commit captured: 3c89090a4eab5e0a5070c1f91c9a00bfb542c191
+2025-12-12T22:56:47.941557Z  INFO ghost snapshot gate marked ready
+2025-12-12T22:56:53.079071Z  INFO ToolCall: shell_command {"command":"nl -ba src/app/globals.css","workdir":"/home/termenater/ai-catalog"}
+2025-12-12T22:56:59.638318Z  INFO ToolCall: apply_patch *** Begin Patch
+*** Update File: /home/termenater/ai-catalog/src/app/globals.css
+@@
+ :root,
+ :root[data-theme="light"] {
+   --radius: 0.625rem;
+   --background: oklch(1 0 0);
+   --foreground: oklch(0.147 0.004 49.25);
+@@
+   --sidebar-accent: oklch(0.97 0.001 106.424);
+   --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
+   --sidebar-border: oklch(0.923 0.003 48.717);
+   --sidebar-ring: oklch(0.709 0.01 56.259);
+-:root,
+-:root[data-theme="light"] {
+-  color-scheme: light;
+ }
+ 
++:root,
++:root[data-theme="light"] {
++  color-scheme: light;
++}
++
+ .dark,
+ :root[data-theme="dark"] {
+   --background: oklch(0.147 0.004 49.25);
+   --foreground: oklch(0.985 0.001 106.423);
+   --card: oklch(0.216 0.006 56.043);
+*** End Patch
+2025-12-12T22:57:01.934419Z  INFO ToolCall: shell_command {"command":"npm run lint","workdir":"/home/termenater/ai-catalog","timeout_ms":120000}

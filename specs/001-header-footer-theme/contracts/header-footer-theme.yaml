@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Header & Footer Navigation + Theme Preference (Frontend-Only)
+  version: 0.1.0
+  description: >
+    Documentation of client-facing routes and hypothetical theme preference API.
+    The current implementation is frontend-only: navigation hits static pages and
+    theme is stored in sessionStorage without network calls. These contracts are
+    reserved for future backend wiring if needed.
+servers:
+  - url: https://ai-catalog.local
+    description: Frontend app (static/edge). API endpoints are not deployed; documented for reference.
+tags:
+  - name: navigation
+    description: Static routes for header CTAs.
+  - name: theme
+    description: Client-managed theme preference (no live backend).
+paths:
+  /login:
+    get:
+      tags: [navigation]
+      summary: Render login page (static route)
+      description: Static page target for header CTA. No API side effects.
+      responses:
+        '200':
+          description: Login page rendered.
+          content:
+            text/html:
+              schema:
+                type: string
+  /favorites:
+    get:
+      tags: [navigation]
+      summary: Render favorites page (static route)
+      description: Static page target for header CTA. No API side effects.
+      responses:
+        '200':
+          description: Favorites page rendered.
+          content:
+            text/html:
+              schema:
+                type: string
+  /api/theme-preference:
+    get:
+      tags: [theme]
+      summary: (Reserved) Read theme preference
+      description: >
+        Frontend currently resolves theme from sessionStorage and system preference
+        without calling this endpoint. If a backend is added, this returns the last
+        saved theme for the session/device.
+      responses:
+        '200':
+          description: Current theme preference.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThemePreference'
+    post:
+      tags: [theme]
+      summary: (Reserved) Save theme preference
+      description: >
+        Frontend currently stores theme in sessionStorage only. This contract is for
+        a future optional API; requests should not be sent until backend exists.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThemePreference'
+      responses:
+        '204':
+          description: Preference accepted (no content).
+components:
+  schemas:
+    ThemePreference:
+      type: object
+      properties:
+        theme:
+          type: string
+          enum: [light, dark]
+        source:
+          type: string
+          enum: [system, user]
+        updatedAt:
+          type: string
+          format: date-time
+          description: Optional timestamp for debugging/analytics.
+      required: [theme, source]
+x-frontend-only: true
