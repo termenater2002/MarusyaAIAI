@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Heart, LogIn } from "lucide-react";
+import { PrimaryNavigation } from "@/components/primary-navigation";
 
 import { Button } from "@/components/ui/button";
 import { MISSING_LABEL, siteConfig } from "@/lib/site-config";
@@ -16,21 +17,26 @@ export function SiteHeader() {
 
   return (
     <header className="site-header border-border/60 bg-card text-foreground">
-      <div className="site-container flex min-h-16 flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:gap-4">
-        <Link
-          href={header.logo.href}
-          aria-label={header.logo.ariaLabel ?? header.logo.label}
-          className="group flex min-w-0 items-center gap-2"
-        >
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-sm font-semibold tracking-tight transition hover:border-primary sm:size-11">
-            {header.fallback.logoText}
-          </div>
-          <span className="truncate text-base font-semibold leading-tight sm:text-lg">
-            {header.logo.label}
-          </span>
-        </Link>
+      <div className="site-container flex min-h-16 flex-wrap items-center gap-3 sm:flex-nowrap sm:gap-4">
+        <div className="flex min-w-0 items-center gap-2">
+          <Link
+            href={header.logo.href}
+            aria-label={header.logo.ariaLabel ?? header.logo.label}
+            className="group flex min-w-0 items-center gap-2"
+          >
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-sm font-semibold tracking-tight transition hover:border-primary sm:size-11">
+              {header.fallback.logoText}
+            </div>
+            <span className="truncate text-base font-semibold leading-tight sm:text-lg">
+              {header.logo.label}
+            </span>
+          </Link>
+        </div>
 
-        <nav className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:flex-none sm:gap-3">
+        <div className="flex flex-1 flex-wrap items-center justify-end gap-2 sm:flex-nowrap sm:gap-3">
+          <PrimaryNavigation items={header.navigation.items} className="order-1 w-full justify-end md:w-auto" />
+
+          <nav className="order-2 flex w-full flex-wrap items-center justify-end gap-2 sm:order-2 sm:w-auto sm:flex-none sm:gap-3">
           {header.actions.map((action) => {
             const Icon = iconByAction[action.id];
             if (!action.href) {
@@ -66,6 +72,7 @@ export function SiteHeader() {
             );
           })}
         </nav>
+        </div>
       </div>
     </header>
   );

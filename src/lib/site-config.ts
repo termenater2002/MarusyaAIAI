@@ -5,6 +5,13 @@ export type NavAction = {
   ariaLabel?: string;
 };
 
+export type PrimaryNavItem = {
+  id: string;
+  label: string;
+  href: string;
+  ariaLabel?: string;
+};
+
 export type SocialLinkStatus = "active" | "missing" | "unverified";
 
 export type SocialLink = {
@@ -25,6 +32,34 @@ export const siteConfig = {
       label: "AI Каталог",
       href: "/",
       ariaLabel: "На главную",
+    },
+    navigation: {
+      items: [
+        {
+          id: "catalog",
+          label: "Каталог",
+          href: "#catalog",
+          ariaLabel: "Перейти к разделу каталога",
+        },
+        {
+          id: "guides",
+          label: "Гайды",
+          href: "#guides",
+          ariaLabel: "Перейти к разделу гайдов",
+        },
+        {
+          id: "updates",
+          label: "Обновления",
+          href: "#updates",
+          ariaLabel: "Перейти к разделу обновлений",
+        },
+        {
+          id: "feedback",
+          label: "Обратная связь",
+          href: "#feedback",
+          ariaLabel: "Перейти к разделу обратной связи",
+        },
+      ] satisfies PrimaryNavItem[],
     },
     actions: [
       {
