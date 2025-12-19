@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, LogIn } from "lucide-react";
+import { BookOpen, Heart, LogIn } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MISSING_LABEL, siteConfig } from "@/lib/site-config";
 
 const iconByAction = {
   login: LogIn,
+  navigation: BookOpen,
   favorites: Heart,
 } as const;
 

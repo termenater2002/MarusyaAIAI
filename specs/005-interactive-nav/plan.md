@@ -5,7 +5,7 @@
 
 ## Summary
 
-Усилить шапку сайта интерактивной навигацией: кликабельные пункты каталога с SPA-переходами, hover/active подсветкой, адаптивным бургер-меню для мобильных и анимациями/состояниями активного раздела. Добавить отдельную кнопку в хедере на внутреннюю страницу с гайдами/обновлениями/обратной связью.
+Усилить шапку одной новой кнопкой, ведущей на внутреннюю страницу с навигацией/гайдами/обновлениями/обратной связью. Без отдельного меню или бургера; SPA-переход по кнопке.
 
 ## Technical Context
 
@@ -22,15 +22,12 @@
 src/
 └── components/
     ├── site-header.tsx            # existing header entry point
-    ├── nav/main-nav.tsx           # desktop nav
-    └── nav/mobile-nav.tsx         # mobile/burger menu
-src/app/guides/page.tsx            # страница с гайдами/обновлениями/обратной связью
-src/lib/site-config.ts             # nav items + header actions
-src/lib/navigation-utils.ts        # active-path helper
+src/app/navigation/page.tsx        # страница с гайдами/обновлениями/обратной связью
+src/lib/site-config.ts             # header actions (CTA to navigation page)
 src/app/layout.tsx                 # consumes SiteHeader
 ```
 
-**Structure Decision**: Расширяем `SiteHeader`, выносим навигацию в отдельные компоненты (desktop/mobile), читаем пункты из конфигурации, подсвечиваем активный путь, добавляем отдельную кнопку/ссылку на страницу гайдов.
+**Structure Decision**: Добавляем одну CTA в `SiteHeader` через `siteConfig.header.actions`, страница навигации статична под `/navigation`. Никаких доп. меню/бургеров.
 
 ## Complexity Tracking
 

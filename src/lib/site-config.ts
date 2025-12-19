@@ -1,5 +1,5 @@
 export type NavAction = {
-  id: "login" | "favorites";
+  id: "login" | "navigation" | "favorites";
   label: string;
   href: string;
   ariaLabel?: string;
@@ -32,6 +32,12 @@ export const siteConfig = {
         label: "Войти",
         href: "/login",
         ariaLabel: "Перейти к авторизации",
+      },
+      {
+        id: "navigation",
+        label: "Навигация",
+        href: "/navigation",
+        ariaLabel: "Открыть страницу с гайдами и обновлениями",
       },
       {
         id: "favorites",
