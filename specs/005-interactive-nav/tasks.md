@@ -17,9 +17,9 @@
 
 **Purpose**: Confirm navigation scope and routes
 
-- [X] T001 Review spec and research in specs/005-interactive-nav/spec.md and research.md to lock required interactions (hover/active, burger, header CTA).
-- [X] T002 Inventory existing routes/anchors for nav items (e.g., `/`, `/login`, `/forgot-password`) in src/lib/site-config.ts and app pages.
-- [X] T003 Verify dev commands `npm test && npm run lint` for later gates.
+- [ ] T001 Review spec and research in specs/005-interactive-nav/spec.md and research.md to lock required interactions (hover/active, burger, header CTA).
+- [ ] T002 Inventory existing routes/anchors for nav items (e.g., `/`, `/login`, `/forgot-password`) in src/lib/site-config.ts and app pages.
+- [ ] T003 Verify dev commands `npm test && npm run lint` for later gates.
 
 ---
 
@@ -27,8 +27,8 @@
 
 **Purpose**: Centralize navigation data
 
-- [X] T004 Define/update navigation items and header CTA (guides page) in src/lib/site-config.ts for reuse by desktop/mobile nav.
-- [X] T005 Add nav utility for active path matching (pathname comparer) in src/lib/navigation-utils.ts.
+- [ ] T004 Define/update navigation items and header CTA (guides page) in src/lib/site-config.ts for reuse by desktop/mobile nav.
+- [ ] T005 Add nav utility for active path matching (pathname comparer) in src/lib/navigation-utils.ts.
 
 **Checkpoint**: Nav data and helpers ready for UI.
 
@@ -42,10 +42,10 @@
 
 ### Implementation for User Story 1
 
-- [X] T006 [US1] Create desktop nav component rendering config-driven items with `next/link` in src/components/nav/main-nav.tsx.
-- [X] T007 [US1] Integrate `MainNav` into header flow in src/components/site-header.tsx, ensuring layout alignment with logo/actions and header CTA.
-- [X] T008 [US1] Add hover/focus styles for nav items using Tailwind classes in src/components/nav/main-nav.tsx.
-- [X] T009 [US1] Add header CTA/button linking to guides/updates/feedback page using site-config data in src/components/site-header.tsx.
+- [ ] T006 [US1] Create desktop nav component rendering config-driven items with `next/link` in src/components/nav/main-nav.tsx.
+- [ ] T007 [US1] Integrate `MainNav` into header flow in src/components/site-header.tsx, ensuring layout alignment with logo/actions and header CTA.
+- [ ] T008 [US1] Add hover/focus styles for nav items using Tailwind classes in src/components/nav/main-nav.tsx.
+- [ ] T009 [US1] Add header CTA/button linking to guides/updates/feedback page using site-config data in src/components/site-header.tsx.
 
 **Checkpoint**: Базовая навигация работает на десктопе без перезагрузки, CTA доступна.
 
@@ -59,9 +59,9 @@
 
 ### Implementation for User Story 2
 
-- [X] T010 [US2] Add mobile nav component with burger toggle and menu list in src/components/nav/mobile-nav.tsx.
-- [X] T011 [US2] Wire responsive visibility (desktop vs mobile) and focus management in src/components/site-header.tsx.
-- [X] T012 [US2] Ensure menu items use `next/link` and close menu on navigation in src/components/nav/mobile-nav.tsx.
+- [ ] T010 [US2] Add mobile nav component with burger toggle and menu list in src/components/nav/mobile-nav.tsx.
+- [ ] T011 [US2] Wire responsive visibility (desktop vs mobile) and focus management in src/components/site-header.tsx.
+- [ ] T012 [US2] Ensure menu items use `next/link` and close menu on navigation in src/components/nav/mobile-nav.tsx.
 
 **Checkpoint**: Навигация доступна на мобильных через бургер.
 
@@ -75,9 +75,9 @@
 
 ### Implementation for User Story 3
 
-- [X] T013 [US3] Use pathname matching helper to highlight active item in src/components/nav/main-nav.tsx.
-- [X] T014 [US3] Apply active-state styles to mobile nav items in src/components/nav/mobile-nav.tsx.
-- [X] T015 [US3] Create guides/updates/feedback page at src/app/guides/page.tsx linked from header CTA.
+- [ ] T013 [US3] Use pathname matching helper to highlight active item in src/components/nav/main-nav.tsx.
+- [ ] T014 [US3] Apply active-state styles to mobile nav items in src/components/nav/mobile-nav.tsx.
+- [ ] T015 [US3] Create guides/updates/feedback page at src/app/guides/page.tsx linked from header CTA.
 
 **Checkpoint**: Пользователь получает визуальную обратную связь на всех устройствах, новая страница доступна.
 
@@ -85,8 +85,8 @@
 
 ## Phase N: Polish & Cross-Cutting Concerns
 
-- [X] T016 [P] Update specs/005-interactive-nav/quickstart.md with desktop/mobile behavior, active-state cues, and header CTA to guides page.
-- [X] T017 Run quality gates (`npm test && npm run lint`) after implementation.
+- [ ] T016 [P] Update specs/005-interactive-nav/quickstart.md with desktop/mobile behavior, active-state cues, and header CTA to guides page.
+- [ ] T017 Run quality gates (`npm test && npm run lint`) after implementation.
 
 ---
 

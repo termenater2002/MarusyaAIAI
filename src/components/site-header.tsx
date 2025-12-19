@@ -1,45 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Heart, LogIn } from "lucide-react";
+import { Heart, LogIn } from "lucide-react";
 
-import { MainNav } from "@/components/nav/main-nav";
-import { MobileNav } from "@/components/nav/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { MISSING_LABEL, siteConfig } from "@/lib/site-config";
 
 const iconByAction = {
   login: LogIn,
-  guides: BookOpen,
   favorites: Heart,
 } as const;
 
 export function SiteHeader() {
-  const { header, navigation } = siteConfig;
-  const navItems = navigation?.items ?? [];
+  const { header } = siteConfig;
 
   return (
     <header className="site-header border-border/60 bg-card text-foreground">
-      <div className="site-container flex min-h-16 flex-wrap items-center gap-3 sm:flex-nowrap sm:gap-4">
-        <div className="flex items-center gap-2">
-          <MobileNav items={navItems} />
-          <Link
-            href={header.logo.href}
-            aria-label={header.logo.ariaLabel ?? header.logo.label}
-            className="group flex min-w-0 items-center gap-2"
-          >
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-sm font-semibold tracking-tight transition hover:border-primary sm:size-11">
-              {header.fallback.logoText}
-            </div>
-            <span className="truncate text-base font-semibold leading-tight sm:text-lg">
-              {header.logo.label}
-            </span>
-          </Link>
-        </div>
+      <div className="site-container flex min-h-16 flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:gap-4">
+        <Link
+          href={header.logo.href}
+          aria-label={header.logo.ariaLabel ?? header.logo.label}
+          className="group flex min-w-0 items-center gap-2"
+        >
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-sm font-semibold tracking-tight transition hover:border-primary sm:size-11">
+            {header.fallback.logoText}
+          </div>
+          <span className="truncate text-base font-semibold leading-tight sm:text-lg">
+            {header.logo.label}
+          </span>
+        </Link>
 
-        <MainNav items={navItems} className="flex-1 justify-center" />
-
-        <nav className="ml-auto flex items-center gap-2">
+        <nav className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:flex-none sm:gap-3">
           {header.actions.map((action) => {
             const Icon = iconByAction[action.id];
             if (!action.href) {
@@ -58,9 +49,9 @@ export function SiteHeader() {
               <Button
                 key={action.id}
                 asChild
-                variant={action.id === "guides" ? "default" : "outline"}
+                variant="outline"
                 size="sm"
-                className="min-h-[44px] justify-center px-3"
+                className="min-h-[44px] flex-1 justify-center px-4 sm:flex-none"
               >
                 <Link
                   href={action.href}
