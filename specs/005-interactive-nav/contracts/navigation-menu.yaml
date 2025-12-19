@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: Navigation Menu API
+  version: 1.0.0
+paths:
+  /api/navigation:
+    get:
+      summary: Get navigation menu items
+      responses:
+        '200':
+          description: Navigation menu items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MenuItem'
+components:
+  schemas:
+    MenuItem:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        href:
+          type: string
+        icon:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'

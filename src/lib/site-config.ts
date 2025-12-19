@@ -1,5 +1,12 @@
 export type NavAction = {
-  id: "login" | "favorites";
+  id: "login" | "guides" | "favorites";
+  label: string;
+  href: string;
+  ariaLabel?: string;
+};
+
+export type NavItem = {
+  id: "catalog" | "login" | "recover" | "guides";
   label: string;
   href: string;
   ariaLabel?: string;
@@ -20,6 +27,34 @@ export const siteConfig = {
   name: "AI Каталог",
   description:
     "Подборка AI-инструментов с понятными шагами доступа и подсказками для РФ. Проект в активной разработке.",
+  navigation: {
+    items: [
+      {
+        id: "catalog",
+        label: "Каталог",
+        href: "/",
+        ariaLabel: "Перейти в каталог",
+      },
+      {
+        id: "login",
+        label: "Войти",
+        href: "/login",
+        ariaLabel: "Перейти к авторизации",
+      },
+      {
+        id: "recover",
+        label: "Восстановление",
+        href: "/forgot-password",
+        ariaLabel: "Перейти к восстановлению доступа",
+      },
+      {
+        id: "guides",
+        label: "Гайды",
+        href: "/guides",
+        ariaLabel: "Гайды, обновления и обратная связь",
+      },
+    ] satisfies NavItem[],
+  },
   header: {
     logo: {
       label: "AI Каталог",
@@ -32,6 +67,12 @@ export const siteConfig = {
         label: "Войти",
         href: "/login",
         ariaLabel: "Перейти к авторизации",
+      },
+      {
+        id: "guides",
+        label: "Гайды",
+        href: "/guides",
+        ariaLabel: "Гайды, обновления и обратная связь",
       },
       {
         id: "favorites",
