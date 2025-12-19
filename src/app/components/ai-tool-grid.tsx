@@ -1,10 +1,14 @@
-import { aiData } from "@/app/data/ai";
+import { type AITool } from "@/app/data/ai";
 import { AIToolCard } from "./ai-tool-card";
 
-export function AIToolGrid() {
+type Props = {
+  tools: AITool[];
+};
+
+export function AIToolGrid({ tools }: Props) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {aiData.map((tool) => (
+      {tools.map((tool) => (
         <AIToolCard key={tool.id} tool={tool} />
       ))}
     </div>
