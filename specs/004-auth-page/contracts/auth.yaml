@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Auth API
+  version: 1.0.0
+paths:
+  /api/auth/login:
+    post:
+      summary: Authenticate user with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authentication succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginSuccess'
+        '400':
+          description: Validation error (invalid payload)
+        '401':
+          description: Invalid credentials or blocked account
+        '423':
+          description: Account requires additional verification
+        '500':
+          description: Unexpected server error
+  /api/auth/recover:
+    post:
+      summary: Request password recovery email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecoveryRequest'
+      responses:
+        '200':
+          description: Recovery email dispatched if account exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecoverySuccess'
+        '400':
+          description: Validation error
+        '429':
+          description: Too many requests
+        '500':
+          description: Unexpected server error
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+    LoginSuccess:
+      type: object
+      properties:
+        redirectTo:
+          type: string
+          description: URL для перенаправления после успешного входа
+        accessToken:
+          type: string
+          description: JWT или другой маркер сессии (при необходимости)
+    RecoveryRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+    RecoverySuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Если аккаунт найден, мы отправили инструкции по восстановлению"
