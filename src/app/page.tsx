@@ -1,29 +1,152 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment } from "react";
+import { useEffect, useState } from "react";
+import { ArrowUpDown, SlidersHorizontal } from "lucide-react";
 
 import { AIToolGrid } from "@/app/components/ai-tool-grid";
-import { aiData } from "@/app/data/ai";
+import { type ApiToolListItem } from "@/app/lib/ai-utils";
+import { categoryOptions } from "@/lib/categories";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 15;
+const SORT_OPTIONS = [
+  { value: "default", label: "По умолчанию" },
+  { value: "rating-desc", label: "По рейтингу" },
+  { value: "name-asc", label: "По названию" },
+] as const;
+
+function getVisiblePages(currentPage: number, totalPages: number) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  const visible = new Set<number>([1, totalPages, currentPage - 1, currentPage, currentPage + 1]);
+
+  if (currentPage <= 3) {
+    visible.add(2);
+    visible.add(3);
+    visible.add(4);
+  }
+
+  if (currentPage >= totalPages - 2) {
+    visible.add(totalPages - 1);
+    visible.add(totalPages - 2);
+    visible.add(totalPages - 3);
+  }
+
+  return [...visible]
+    .filter((page) => page >= 1 && page <= totalPages)
+    .sort((left, right) => left - right);
+}
 
 export default function Home() {
   const [page, setPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(aiData.length / PAGE_SIZE));
+  const [items, setItems] = useState<ApiToolListItem[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sort, setSort] = useState("default");
+  const [categoryId, setCategoryId] = useState<string>("all");
+  const [freeOnly, setFreeOnly] = useState(false);
+  const [worksInRussiaOnly, setWorksInRussiaOnly] = useState(false);
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const visiblePages = getVisiblePages(page, totalPages);
 
-  const start = (page - 1) * PAGE_SIZE;
-  const end = start + PAGE_SIZE;
-  const pageItems = aiData.slice(start, end);
-  const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadTools = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const offset = (page - 1) * PAGE_SIZE;
+        const params = new URLSearchParams({
+          limit: String(PAGE_SIZE),
+          offset: String(offset),
+          sort,
+        });
+
+        if (categoryId !== "all") {
+          params.set("categoryId", categoryId);
+        }
+
+        if (freeOnly) {
+          params.set("freeOnly", "true");
+        }
+
+        if (worksInRussiaOnly) {
+          params.set("worksInRussiaOnly", "true");
+        }
+
+        const response = await fetch(`/api/tools?${params.toString()}`, {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Не удалось загрузить каталог.");
+        }
+
+        const data = (await response.json()) as {
+          items: ApiToolListItem[];
+          pagination: {
+            total: number;
+          };
+        };
+
+        if (!cancelled) {
+          setItems(data.items);
+          setTotal(data.pagination.total);
+        }
+      } catch (loadError) {
+        if (!cancelled) {
+          setError(
+            loadError instanceof Error ? loadError.message : "Не удалось загрузить каталог.",
+          );
+          setItems([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void loadTools();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [page, sort, categoryId, freeOnly, worksInRussiaOnly]);
 
   const goToPage = (nextPage: number) => {
     setPage((current) => {
@@ -36,23 +159,138 @@ export default function Home() {
     });
   };
 
+  const handleSortChange = (nextSort: string) => {
+    setPage(1);
+    setSort(nextSort);
+  };
+
+  const handleCategoryChange = (nextCategoryId: string) => {
+    setPage(1);
+    setCategoryId(nextCategoryId);
+  };
+
+  const handleFreeOnlyChange = (checked: boolean) => {
+    setPage(1);
+    setFreeOnly(checked);
+  };
+
+  const handleWorksInRussiaOnlyChange = (checked: boolean) => {
+    setPage(1);
+    setWorksInRussiaOnly(checked);
+  };
+
+  const resetFilters = () => {
+    setPage(1);
+    setCategoryId("all");
+    setFreeOnly(false);
+    setWorksInRussiaOnly(false);
+  };
+
   return (
     <div className="site-container flex flex-col gap-8 py-10">
-      <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          AI Каталог
-        </p>
-        <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
-          Каталог реальных AI-инструментов из исходных данных.
-        </h1>
-        <p className="max-w-3xl text-lg text-muted-foreground">
-          Показываем название, краткое описание, рейтинг и теги каждого сервиса напрямую из aiData без выдуманных элементов.
-        </p>
-      </header>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-2">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button type="button" variant="outline" className="gap-2">
+                <SlidersHorizontal className="size-4" aria-hidden />
+                Фильтры
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle>Фильтры</SheetTitle>
+                <SheetDescription>
+                  Отбери инструменты по категории и доступности.
+                </SheetDescription>
+              </SheetHeader>
 
-      <AIToolGrid tools={pageItems} />
+              <div className="flex flex-col gap-6 px-4 py-2">
+                <div className="space-y-2">
+                  <Label htmlFor="category-filter">Категория</Label>
+                  <Select value={categoryId} onValueChange={handleCategoryChange}>
+                    <SelectTrigger id="category-filter" className="w-full">
+                      <SelectValue placeholder="Все категории" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все категории</SelectItem>
+                      {categoryOptions.map((category) => (
+                        <SelectItem key={category.id} value={String(category.id)}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-      {totalPages > 1 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Checkbox
+                      id="free-only"
+                      checked={freeOnly}
+                      onCheckedChange={(checked) => handleFreeOnlyChange(Boolean(checked))}
+                    />
+                    <Label htmlFor="free-only">Только бесплатные</Label>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Checkbox
+                      id="works-russia-only"
+                      checked={worksInRussiaOnly}
+                      onCheckedChange={(checked) =>
+                        handleWorksInRussiaOnlyChange(Boolean(checked))
+                      }
+                    />
+                    <Label htmlFor="works-russia-only">Работает в России</Label>
+                  </div>
+                </div>
+              </div>
+
+              <SheetFooter>
+                <Button type="button" variant="outline" onClick={resetFilters}>
+                  Сбросить
+                </Button>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
+
+          {(categoryId !== "all" || freeOnly || worksInRussiaOnly) && (
+            <Button type="button" variant="ghost" onClick={resetFilters}>
+              Очистить фильтры
+            </Button>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <ArrowUpDown className="size-4 text-muted-foreground" aria-hidden />
+          <Select value={sort} onValueChange={handleSortChange}>
+            <SelectTrigger className="min-w-52">
+              <SelectValue placeholder="Сортировка" />
+            </SelectTrigger>
+            <SelectContent>
+              {SORT_OPTIONS.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="rounded-lg border border-border/60 bg-card p-6 text-sm text-muted-foreground">
+          Загружаем AI-инструменты...
+        </div>
+      ) : error ? (
+        <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-6 text-sm text-destructive">
+          {error}
+        </div>
+      ) : (
+        <AIToolGrid tools={items} />
+      )}
+
+      {!loading && !error && totalPages > 1 && (
         <Pagination className="mt-8">
           <PaginationContent>
             <PaginationItem>
@@ -69,21 +307,33 @@ export default function Home() {
               />
             </PaginationItem>
 
-            {pages.map((pageNumber) => (
-              <PaginationItem key={pageNumber}>
-                <PaginationLink
-                  href="#"
-                  isActive={pageNumber === page}
-                  aria-label={`Перейти на страницу ${pageNumber}`}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    goToPage(pageNumber);
-                  }}
-                >
-                  {pageNumber}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {visiblePages.map((pageNumber, index) => {
+              const previousPage = visiblePages[index - 1];
+              const shouldShowEllipsis = previousPage && pageNumber - previousPage > 1;
+
+              return (
+                <Fragment key={pageNumber}>
+                  {shouldShowEllipsis ? (
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  ) : null}
+                  <PaginationItem>
+                    <PaginationLink
+                      href="#"
+                      isActive={pageNumber === page}
+                      aria-label={`Перейти на страницу ${pageNumber}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goToPage(pageNumber);
+                      }}
+                    >
+                      {pageNumber}
+                    </PaginationLink>
+                  </PaginationItem>
+                </Fragment>
+              );
+            })}
 
             <PaginationItem>
               <PaginationNext

@@ -22,17 +22,11 @@ export const siteConfig = {
     "Подборка AI-инструментов с понятными шагами доступа и подсказками для РФ. Проект в активной разработке.",
   header: {
     logo: {
-      label: "AI Каталог",
+      label: "Каталог ИИ и полезных инструментов",
       href: "/",
       ariaLabel: "На главную",
     },
     actions: [
-      {
-        id: "login",
-        label: "Войти",
-        href: "/login",
-        ariaLabel: "Перейти к авторизации",
-      },
       {
         id: "navigation",
         label: "Навигация",
@@ -44,6 +38,12 @@ export const siteConfig = {
         label: "Избранное",
         href: "/favorites",
         ariaLabel: "Открыть избранное",
+      },
+      {
+        id: "login",
+        label: "Войти",
+        href: "/login",
+        ariaLabel: "Перейти к авторизации",
       },
     ] satisfies NavAction[],
     fallback: {
@@ -73,7 +73,7 @@ export const siteConfig = {
         status: "unverified",
         ariaLabel: "Написать на email",
       },
-    ] as const,
+    ] satisfies SocialLink[],
     contact: {
       email: "contact@ai-catalog.local",
       messenger: undefined,

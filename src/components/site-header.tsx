@@ -1,9 +1,18 @@
 "use client";
 
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
-import { BookOpen, Heart, LogIn } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { BookOpen, Heart, LogIn, LogOut, Search, Sparkles, UserRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { logoutRequest } from "@/lib/auth-utils";
 import { MISSING_LABEL, siteConfig } from "@/lib/site-config";
 
 const iconByAction = {
@@ -12,8 +21,67 @@ const iconByAction = {
   favorites: Heart,
 } as const;
 
+type HeaderUser = {
+  id: string;
+  email: string;
+  username: string | null;
+  displayName: string | null;
+  role: string;
+  emailVerified: boolean;
+};
+
 export function SiteHeader() {
   const { header } = siteConfig;
+  const router = useRouter();
+  const [user, setUser] = useState<HeaderUser | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadUser = async () => {
+      try {
+        const response = await fetch("/api/auth/me", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          if (!cancelled) {
+            setUser(null);
+          }
+          return;
+        }
+
+        const data = (await response.json()) as {
+          user: HeaderUser;
+        };
+
+        if (!cancelled) {
+          setUser(data.user);
+        }
+      } catch {
+        if (!cancelled) {
+          setUser(null);
+        }
+      }
+    };
+
+    void loadUser();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleLogout = () => {
+    startTransition(async () => {
+      await logoutRequest();
+
+      setUser(null);
+      router.refresh();
+      router.push("/");
+    });
+  };
 
   return (
     <header className="site-header border-border/60 bg-card text-foreground">
@@ -32,7 +100,33 @@ export function SiteHeader() {
         </Link>
 
         <nav className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:flex-none sm:gap-3">
+          <Button
+            asChild
+            variant="outline"
+            size="icon"
+            className="min-h-[44px] min-w-[44px] shrink-0"
+          >
+            <Link href="/search/basic" aria-label="Открыть обычный поиск" prefetch={false}>
+              <Search className="size-4" aria-hidden />
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            size="icon"
+            className="min-h-[44px] min-w-[44px] shrink-0"
+          >
+            <Link href="/search" aria-label="Открыть умный подбор инструментов" prefetch={false}>
+              <Sparkles className="size-4" aria-hidden />
+            </Link>
+          </Button>
+
           {header.actions.map((action) => {
+            if (action.id === "login" && user) {
+              return null;
+            }
+
             const Icon = iconByAction[action.id];
             if (!action.href) {
               return (
@@ -66,6 +160,35 @@ export function SiteHeader() {
               </Button>
             );
           })}
+
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="min-h-[44px] min-w-[44px]"
+                  aria-label={user.displayName ? `Профиль: ${user.displayName}` : "Профиль"}
+                >
+                  <UserRound className="size-4" aria-hidden />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-48">
+                <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                  {user.displayName || user.email}
+                </div>
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  disabled={isPending}
+                  className="cursor-pointer"
+                >
+                  <LogOut className="size-4" aria-hidden />
+                  <span>{isPending ? "Выходим..." : "Выйти"}</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : null}
         </nav>
       </div>
     </header>

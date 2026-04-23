@@ -29,10 +29,8 @@ export function SiteFooter() {
           <h2 className="text-base font-semibold leading-tight">Контакты</h2>
           <ul className="flex flex-wrap gap-2 text-sm">
             {footer.socialLinks.map((link) => {
-              const badge =
-                link.status === "active"
-                  ? ""
-                  : ` (${statusLabel[link.status]})`;
+              const badgeText = statusLabel[link.status];
+              const badge = badgeText ? ` (${badgeText})` : "";
 
               if (!link.href) {
                 return (
@@ -47,11 +45,10 @@ export function SiteFooter() {
               }
 
               const isEmail = link.href.startsWith("mailto:");
-              const Comp = isEmail ? "a" : "a";
 
               return (
                 <li key={link.name}>
-                  <Comp
+                  <a
                     href={link.href}
                     className="inline-flex min-h-[36px] items-center gap-1 rounded-full border border-border/70 px-3 transition hover:border-primary hover:text-primary"
                     target={isEmail ? undefined : "_blank"}
@@ -67,7 +64,7 @@ export function SiteFooter() {
                       {link.name}
                       {badge}
                     </span>
-                  </Comp>
+                  </a>
                 </li>
               );
             })}

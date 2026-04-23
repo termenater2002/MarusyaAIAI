@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -18,9 +17,10 @@ import { Label } from "@/components/ui/label";
 import {
   getLoginErrorMessage,
   loginRequest,
+  loginWithGoogleRequest,
   validateEmail,
 } from "@/lib/auth-utils";
-import { Loader2 } from "lucide-react";
+import { Chrome, Loader2 } from "lucide-react";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -63,17 +63,51 @@ export function LoginForm() {
     setPassword("");
   };
 
+  const handleGoogleLogin = async () => {
+    setStatus("submitting");
+    setMessage(undefined);
+
+    const result = await loginWithGoogleRequest();
+
+    if (result.ok) {
+      setStatus("success");
+      router.push(result.redirectTo);
+      return;
+    }
+
+    setStatus("error");
+    setMessage(result.message);
+  };
+
   return (
     <Card className="border border-border/60 shadow-md">
       <CardHeader className="space-y-1">
         <CardTitle>Войти</CardTitle>
-        <CardDescription>
-          Используйте email и пароль. При ошибке проверьте данные или восстановите доступ.
-        </CardDescription>
       </CardHeader>
 
       <CardContent>
-        <form className="space-y-4" onSubmit={handleSubmit} noValidate>
+        <div className="space-y-4">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full"
+            disabled={isSubmitting}
+            onClick={handleGoogleLogin}
+          >
+            <Chrome className="size-4" aria-hidden />
+            Войти через Google
+          </Button>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border/60" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="bg-card px-2">или</span>
+            </div>
+          </div>
+
+          <form className="space-y-4" onSubmit={handleSubmit} noValidate>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -99,11 +133,8 @@ export function LoginForm() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              minLength={8}
+              minLength={6}
             />
-            <p className="text-sm text-muted-foreground">
-              Не менее 8 символов. Пароль очищается при ошибке входа.
-            </p>
           </div>
 
           <div className="space-y-2">
@@ -133,7 +164,8 @@ export function LoginForm() {
               </p>
             ) : null}
           </div>
-        </form>
+          </form>
+        </div>
       </CardContent>
 
       <CardFooter className="flex flex-col items-stretch gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">

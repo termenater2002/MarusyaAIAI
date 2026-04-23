@@ -1,11 +1,13 @@
 import Link from "next/link";
 
-import { AITool } from "@/app/data/ai";
 import {
   externalLinkProps,
   formatRating,
   getInternalToolHref,
+  getPreferredToolImage,
+  type ApiToolListItem,
 } from "@/app/lib/ai-utils";
+import { FavoriteToggleButton } from "@/components/favorite-toggle-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,21 +20,26 @@ import {
 import { ArrowUpRight } from "lucide-react";
 
 type Props = {
-  tool: AITool;
+  tool: ApiToolListItem;
 };
 
 export function AIToolCard({ tool }: Props) {
   const internalHref = getInternalToolHref(tool.id);
+  const imageSrc = getPreferredToolImage(tool, { size: 256, theme: "dark" });
 
   return (
     <Card className="relative h-full overflow-hidden">
+      <div className="pointer-events-auto absolute right-3 top-3 z-10">
+        <FavoriteToggleButton toolId={tool.id} compact />
+      </div>
+
       <Link
         href={internalHref}
         className="flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <div className="relative aspect-[3/2] overflow-hidden bg-muted">
           <img
-            src={tool.image}
+            src={imageSrc}
             alt={`Иллюстрация для ${tool.name}`}
             className="h-full w-full object-cover"
             loading="lazy"
@@ -48,7 +55,7 @@ export function AIToolCard({ tool }: Props) {
               </CardDescription>
             </div>
             <span className="shrink-0 rounded-md bg-primary/10 px-2 py-1 text-sm font-semibold text-primary">
-              {formatRating(tool.rating)}
+              {formatRating(tool.editorialRating)}
             </span>
           </div>
         </CardHeader>

@@ -1,8 +1,8 @@
-import { type AITool } from "@/app/data/ai";
+import { type ApiToolListItem } from "@/app/lib/ai-utils";
 import { AIToolCard } from "./ai-tool-card";
 
 type Props = {
-  tools: AITool[];
+  tools: ApiToolListItem[];
 };
 
 export function AIToolGrid({ tools }: Props) {
