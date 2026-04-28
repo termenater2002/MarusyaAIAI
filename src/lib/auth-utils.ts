@@ -20,9 +20,12 @@ export type AuthErrorCode =
   | "unverified"
   | "too_many_requests"
   | "email_taken"
+  | "popup_blocked"
   | "validation"
   | "network"
   | "popup_closed"
+  | "unauthorized_domain"
+  | "provider_disabled"
   | "unknown";
 
 type RecoveryResponse = {
@@ -142,9 +145,14 @@ export function getLoginErrorMessage(code: AuthErrorCode): string {
     too_many_requests: "Слишком много попыток. Попробуй чуть позже.",
     email_taken:
       "Аккаунт с таким email уже существует. Если почта твоя, восстанови доступ через письмо и задай новый пароль.",
+    popup_blocked: "Браузер заблокировал окно входа. Разреши всплывающее окно и попробуй снова.",
     validation: "Проверь корректность введённых данных.",
     network: "Нет связи с сервером. Проверь подключение и попробуй снова.",
     popup_closed: "Окно входа было закрыто до завершения авторизации.",
+    unauthorized_domain:
+      "Этот домен не разрешён в Firebase Auth. Добавь его в список Authorized domains.",
+    provider_disabled:
+      "В Firebase не включён вход через Google. Включи Google provider в Authentication.",
     unknown: "Произошла ошибка. Попробуй снова через несколько секунд.",
   };
 
@@ -170,8 +178,15 @@ function mapFirebaseErrorCode(error: unknown): AuthErrorCode {
       return "too_many_requests";
     case "auth/network-request-failed":
       return "network";
+    case "auth/popup-blocked":
+      return "popup_blocked";
     case "auth/popup-closed-by-user":
+    case "auth/cancelled-popup-request":
       return "popup_closed";
+    case "auth/unauthorized-domain":
+      return "unauthorized_domain";
+    case "auth/operation-not-allowed":
+      return "provider_disabled";
     default:
       return "unknown";
   }
@@ -254,6 +269,7 @@ export async function loginWithGoogleRequest(): Promise<
       displayName: credential.user.displayName,
     });
   } catch (error) {
+    console.error("Google login failed", error);
     const code = mapFirebaseErrorCode(error);
     return { ok: false, code, message: getLoginErrorMessage(code) };
   }

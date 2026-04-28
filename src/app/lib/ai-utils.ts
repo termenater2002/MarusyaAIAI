@@ -84,9 +84,18 @@ export function getLogoDevUrl(url: string, options?: { size?: number; theme?: "l
   return `https://img.logo.dev/${domain}?${params.toString()}`;
 }
 
+export function getImageProxyUrl(src: string) {
+  if (!src.startsWith("http://") && !src.startsWith("https://")) {
+    return src;
+  }
+
+  return `/api/image-proxy?src=${encodeURIComponent(src)}`;
+}
+
 export function getPreferredToolImage(
   tool: Pick<ApiToolListItem, "imageUrl" | "url">,
   options?: { size?: number; theme?: "light" | "dark" | "auto" },
 ) {
-  return tool.imageUrl || getLogoDevUrl(tool.url, options) || "/images/ai-placeholder.png";
+  const directImage = tool.imageUrl || getLogoDevUrl(tool.url, options) || "/images/ai-placeholder.png";
+  return getImageProxyUrl(directImage);
 }
