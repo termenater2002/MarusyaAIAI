@@ -8,6 +8,7 @@ import {
   type ApiToolListItem,
 } from "@/app/lib/ai-utils";
 import { FavoriteToggleButton } from "@/components/favorite-toggle-button";
+import { ToolImage } from "@/components/tool-image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,7 +39,7 @@ export function AIToolCard({ tool }: Props) {
         className="flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <div className="relative aspect-[3/2] overflow-hidden bg-muted">
-          <img
+          <ToolImage
             src={imageSrc}
             alt={`Иллюстрация для ${tool.name}`}
             className="h-full w-full object-cover"

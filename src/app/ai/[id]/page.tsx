@@ -7,6 +7,8 @@ import {
   getPreferredToolImage,
 } from "@/app/lib/ai-utils";
 import { FavoriteToggleButton } from "@/components/favorite-toggle-button";
+import { ToolExportActions } from "@/components/tool-export-actions";
+import { ToolImage } from "@/components/tool-image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
@@ -120,7 +122,7 @@ export default async function AIToolDetailPage({ params }: ToolPageProps) {
       </div>
 
       <div className="overflow-hidden rounded-lg border bg-muted">
-        <img
+        <ToolImage
           src={imageSrc}
           alt={`Изображение для ${tool.name}`}
           className="h-40 w-full object-cover sm:h-48 lg:h-56"
@@ -183,6 +185,23 @@ export default async function AIToolDetailPage({ params }: ToolPageProps) {
             )}
           </section>
         </div>
+      </div>
+
+      <div className="border-t border-border/50 pt-2">
+        <ToolExportActions
+          tool={{
+            id: tool.id as number,
+            name: tool.name as string,
+            entityType: tool.entityType as string,
+            url: tool.url as string,
+            description: (tool.description as string | null) ?? null,
+            longDescription: (tool.longDescription as string | null) ?? null,
+            editorialRating: (tool.editorialRating as number | null) ?? null,
+          }}
+          tags={tags}
+          features={features}
+          ratingSummary={ratingSummary}
+        />
       </div>
     </div>
   );

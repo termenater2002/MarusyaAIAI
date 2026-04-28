@@ -96,6 +96,6 @@ export function getPreferredToolImage(
   tool: Pick<ApiToolListItem, "imageUrl" | "url">,
   options?: { size?: number; theme?: "light" | "dark" | "auto" },
 ) {
-  const directImage = tool.imageUrl || getLogoDevUrl(tool.url, options) || "/images/ai-placeholder.png";
+  const directImage = tool.imageUrl || getLogoDevUrl(tool.url, options) || "/error.png";
   return getImageProxyUrl(directImage);
 }

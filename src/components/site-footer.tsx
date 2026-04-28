@@ -61,7 +61,7 @@ export function SiteFooter() {
                       <ExternalLink className="size-4" aria-hidden />
                     )}
                     <span>
-                      {link.name}
+                      {link.name === "Email" ? footer.contact.email : link.name}
                       {badge}
                     </span>
                   </a>
@@ -98,6 +98,16 @@ export function SiteFooter() {
         ) : (
           <span>{MISSING_LABEL}</span>
         )}
+      </div>
+
+      <div className="site-container flex justify-end pb-4">
+        <a
+          href="/api/export/tools.csv"
+          className="text-[11px] text-muted-foreground/70 transition hover:text-muted-foreground"
+          download
+        >
+          Скачать CSV
+        </a>
       </div>
     </footer>
   );

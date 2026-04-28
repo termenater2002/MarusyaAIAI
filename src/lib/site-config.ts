@@ -56,34 +56,22 @@ export const siteConfig = {
       "Мы собираем рабочие AI-инструменты и отмечаем требования: VPN, оплата, язык интерфейса.",
     socialLinks: [
       {
-        name: "Telegram",
-        href: undefined,
-        status: "missing",
-        ariaLabel: "Ссылка на Telegram: не указано",
-      },
-      {
-        name: "YouTube",
-        href: undefined,
-        status: "missing",
-        ariaLabel: "Ссылка на YouTube: не указано",
-      },
-      {
         name: "Email",
-        href: "mailto:contact@ai-catalog.local",
-        status: "unverified",
+        href: "mailto:0the.l.lawliet@gmail.com",
+        status: "active",
         ariaLabel: "Написать на email",
       },
     ] satisfies SocialLink[],
     contact: {
-      email: "contact@ai-catalog.local",
+      email: "0the.l.lawliet@gmail.com",
       messenger: undefined,
     },
     policyLink: {
-      label: "Политика и условия",
-      href: "#",
+      label: "Правила обработки пользовательских данных",
+      href: "/legal/privacy-policy",
     },
     meta: {
-      updatedAt: "2025-12-13",
+      updatedAt: "2026-04-28",
     },
   },
 };
