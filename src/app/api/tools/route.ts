@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
     rawCategoryId && rawCategoryId !== "all" ? Number(rawCategoryId) : null;
   const freeOnly = searchParams.get("freeOnly") === "true";
   const worksInRussiaOnly = searchParams.get("worksInRussiaOnly") === "true";
+  const russianMadeOnly = searchParams.get("russianMadeOnly") === "true";
   const sort = searchParams.get("sort") ?? "default";
 
   const whereClauses: string[] = [];
@@ -51,6 +52,16 @@ export async function GET(request: NextRequest) {
           )
       )`,
     );
+  }
+
+  if (russianMadeOnly) {
+    whereClauses.push(
+      `(LOWER(ai_tools.url) ~ $${valueIndex})`,
+    );
+    values.push(
+      String.raw`^https?://([^/?#]+\.)?([a-z0-9-]+\.)*(ru|рф|xn--p1ai|su|рус|москва|moscow|tatar|дети|сайт|онлайн|ком|орг|бел|қаз|срб|бг|мкд|ею|мон|yandex)([:/?#]|$)`,
+    );
+    valueIndex += 1;
   }
 
   const whereSql = whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
@@ -107,6 +118,7 @@ export async function GET(request: NextRequest) {
       categoryId,
       freeOnly,
       worksInRussiaOnly,
+      russianMadeOnly,
       sort,
     },
   });

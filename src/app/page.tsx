@@ -78,6 +78,7 @@ export default function Home() {
   const [categoryId, setCategoryId] = useState<string>("all");
   const [freeOnly, setFreeOnly] = useState(false);
   const [worksInRussiaOnly, setWorksInRussiaOnly] = useState(false);
+  const [russianMadeOnly, setRussianMadeOnly] = useState(false);
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const visiblePages = getVisiblePages(page, totalPages);
 
@@ -106,6 +107,10 @@ export default function Home() {
 
         if (worksInRussiaOnly) {
           params.set("worksInRussiaOnly", "true");
+        }
+
+        if (russianMadeOnly) {
+          params.set("russianMadeOnly", "true");
         }
 
         const response = await fetch(`/api/tools?${params.toString()}`, {
@@ -146,7 +151,7 @@ export default function Home() {
     return () => {
       cancelled = true;
     };
-  }, [page, sort, categoryId, freeOnly, worksInRussiaOnly]);
+  }, [page, sort, categoryId, freeOnly, worksInRussiaOnly, russianMadeOnly]);
 
   const goToPage = (nextPage: number) => {
     setPage((current) => {
@@ -179,11 +184,17 @@ export default function Home() {
     setWorksInRussiaOnly(checked);
   };
 
+  const handleRussianMadeOnlyChange = (checked: boolean) => {
+    setPage(1);
+    setRussianMadeOnly(checked);
+  };
+
   const resetFilters = () => {
     setPage(1);
     setCategoryId("all");
     setFreeOnly(false);
     setWorksInRussiaOnly(false);
+    setRussianMadeOnly(false);
   };
 
   return (
@@ -243,6 +254,17 @@ export default function Home() {
                     />
                     <Label htmlFor="works-russia-only">Работает в России</Label>
                   </div>
+
+                  <div className="flex items-center gap-3">
+                    <Checkbox
+                      id="russian-made-only"
+                      checked={russianMadeOnly}
+                      onCheckedChange={(checked) =>
+                        handleRussianMadeOnlyChange(Boolean(checked))
+                      }
+                    />
+                    <Label htmlFor="russian-made-only">Российского производства</Label>
+                  </div>
                 </div>
               </div>
 
@@ -254,7 +276,7 @@ export default function Home() {
             </SheetContent>
           </Sheet>
 
-          {(categoryId !== "all" || freeOnly || worksInRussiaOnly) && (
+          {(categoryId !== "all" || freeOnly || worksInRussiaOnly || russianMadeOnly) && (
             <Button type="button" variant="ghost" onClick={resetFilters}>
               Очистить фильтры
             </Button>
