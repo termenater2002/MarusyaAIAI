@@ -16,6 +16,15 @@ type RatingPayload = {
   reviewText?: string;
 };
 
+function toNullableNumber(value: unknown) {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
+}
+
 export async function GET(request: NextRequest, context: RouteContext) {
   const { toolId } = await context.params;
   const numericToolId = Number(toolId);
@@ -48,12 +57,24 @@ export async function GET(request: NextRequest, context: RouteContext) {
     currentUserRating = currentRatingResult.rows[0] ?? null;
   }
 
+  const summaryRow = summaryResult.rows[0] as
+    | {
+        averageRating: unknown;
+        totalRatings: unknown;
+      }
+    | undefined;
+
   return NextResponse.json({
-    summary: summaryResult.rows[0] ?? {
-      averageRating: null,
-      totalRatings: 0,
+    summary: {
+      averageRating: toNullableNumber(summaryRow?.averageRating),
+      totalRatings: Number(summaryRow?.totalRatings ?? 0),
     },
-    currentUserRating,
+    currentUserRating: currentUserRating
+      ? {
+          rating: Number(currentUserRating.rating),
+          reviewText: currentUserRating.reviewText ?? null,
+        }
+      : null,
   });
 }
 

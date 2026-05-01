@@ -6,6 +6,8 @@ export type ApiToolListItem = {
   imageUrl: string | null;
   description: string;
   editorialRating: number | null;
+  averageUserRating?: number | null;
+  userRatingCount?: number;
   worksInRussia: boolean | null;
   needsVPN: boolean | null;
   requiresRegistration: boolean | null;
@@ -34,6 +36,18 @@ export function formatRating(rating: number | null | undefined): string {
   }
 
   return "—";
+}
+
+export function getDisplayRating(
+  tool: Pick<ApiToolListItem, "editorialRating" | "averageUserRating">
+) {
+  const averageUserRating = Number(tool.averageUserRating);
+  if (Number.isFinite(averageUserRating)) {
+    return averageUserRating;
+  }
+
+  const editorialRating = Number(tool.editorialRating);
+  return Number.isFinite(editorialRating) ? editorialRating : null;
 }
 
 export const externalLinkProps = {

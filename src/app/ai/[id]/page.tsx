@@ -4,11 +4,13 @@ import { getPool } from "@/lib/server/db";
 import {
   externalLinkProps,
   formatRating,
+  getDisplayRating,
   getPreferredToolImage,
 } from "@/app/lib/ai-utils";
 import { FavoriteToggleButton } from "@/components/favorite-toggle-button";
 import { ToolExportActions } from "@/components/tool-export-actions";
 import { ToolImage } from "@/components/tool-image";
+import { ToolRatingForm } from "@/components/tool-rating-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
@@ -18,6 +20,15 @@ type ToolPageProps = {
     id: string;
   }>;
 };
+
+function toNullableNumber(value: unknown) {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
+}
 
 export default async function AIToolDetailPage({ params }: ToolPageProps) {
   const { id } = await params;
@@ -77,9 +88,13 @@ export default async function AIToolDetailPage({ params }: ToolPageProps) {
 
   const tags = tagsResult.rows.map((tag) => tag.name as string);
   const features = featuresResult.rows.map((feature) => feature.text as string);
-  const ratingSummary = ratingSummaryResult.rows[0] as {
-    averageUserRating: number | null;
-    userRatingCount: number;
+  const ratingSummaryRow = ratingSummaryResult.rows[0] as {
+    averageUserRating: unknown;
+    userRatingCount: unknown;
+  };
+  const ratingSummary = {
+    averageUserRating: toNullableNumber(ratingSummaryRow?.averageUserRating),
+    userRatingCount: Number(ratingSummaryRow?.userRatingCount ?? 0),
   };
   const imageSrc = getPreferredToolImage(
     {
@@ -88,6 +103,10 @@ export default async function AIToolDetailPage({ params }: ToolPageProps) {
     },
     { size: 512, theme: "dark" },
   );
+  const displayRating = getDisplayRating({
+    editorialRating: (tool.editorialRating as number | null) ?? null,
+    averageUserRating: ratingSummary.averageUserRating,
+  });
 
   return (
     <div className="site-container flex flex-col gap-8 py-10">
@@ -105,17 +124,17 @@ export default async function AIToolDetailPage({ params }: ToolPageProps) {
         </div>
         <div className="flex items-center gap-3">
           <span className="rounded-md bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary">
-            {formatRating(tool.editorialRating)}
+            {formatRating(displayRating)}
           </span>
           <FavoriteToggleButton toolId={tool.id as number} />
           <Button asChild variant="outline" className="gap-2">
             <a
               href={tool.url}
               {...externalLinkProps}
-              aria-label={`Открыть ${tool.name} во внешнем сайте`}
+              aria-label={`Открыть ссылку на инструмент ${tool.name}`}
             >
               <ArrowUpRight className="size-4" />
-              Внешний сайт
+              Ссылка на инструмент
             </a>
           </Button>
         </div>
@@ -154,18 +173,11 @@ export default async function AIToolDetailPage({ params }: ToolPageProps) {
 
           <section className="space-y-2 rounded-lg border bg-card p-4 shadow-sm">
             <h3 className="text-lg font-semibold">Оценки пользователей</h3>
-            <p className="text-sm text-muted-foreground">
-              Средняя пользовательская оценка:{" "}
-              <span className="font-medium text-foreground">
-                {formatRating(ratingSummary.averageUserRating)}
-              </span>
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Всего оценок:{" "}
-              <span className="font-medium text-foreground">
-                {ratingSummary.userRatingCount}
-              </span>
-            </p>
+            <ToolRatingForm
+              toolId={tool.id as number}
+              initialAverageRating={ratingSummary.averageUserRating}
+              initialTotalRatings={ratingSummary.userRatingCount}
+            />
           </section>
         </div>
 

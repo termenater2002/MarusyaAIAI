@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   externalLinkProps,
   formatRating,
+  getDisplayRating,
   getInternalToolHref,
   getPreferredToolImage,
   type ApiToolListItem,
@@ -27,6 +28,7 @@ type Props = {
 export function AIToolCard({ tool }: Props) {
   const internalHref = getInternalToolHref(tool.id);
   const imageSrc = getPreferredToolImage(tool, { size: 256, theme: "dark" });
+  const displayRating = getDisplayRating(tool);
 
   return (
     <Card className="relative h-full overflow-hidden">
@@ -56,7 +58,7 @@ export function AIToolCard({ tool }: Props) {
               </CardDescription>
             </div>
             <span className="shrink-0 rounded-md bg-primary/10 px-2 py-1 text-sm font-semibold text-primary">
-              {formatRating(tool.editorialRating)}
+              {formatRating(displayRating)}
             </span>
           </div>
         </CardHeader>

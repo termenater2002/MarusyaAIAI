@@ -24,6 +24,16 @@ export async function GET(request: NextRequest) {
       ai_tools.short_description AS description,
       ai_tools.long_description AS "longDescription",
       ai_tools.editorial_rating AS "editorialRating",
+      (
+        SELECT ROUND(AVG(rating_value)::numeric, 2)
+        FROM user_ratings
+        WHERE user_ratings.tool_id = ai_tools.id
+      ) AS "averageUserRating",
+      (
+        SELECT COUNT(*)::int
+        FROM user_ratings
+        WHERE user_ratings.tool_id = ai_tools.id
+      ) AS "userRatingCount",
       ai_tools.works_in_russia AS "worksInRussia",
       ai_tools.needs_vpn AS "needsVPN",
       ai_tools.requires_registration AS "requiresRegistration",

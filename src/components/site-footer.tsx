@@ -81,11 +81,9 @@ export function SiteFooter() {
       </div>
 
       <div className="site-container flex flex-wrap items-center justify-between gap-3 border-t border-border/50 py-3 text-xs text-muted-foreground">
-        <div className="inline-flex items-center gap-2">
-          <span>Обновлено:</span>
-          <span className="font-medium text-foreground">
-            {footer.meta.updatedAt}
-          </span>
+        <div className="space-y-0.5">
+          <p className="font-medium text-foreground">© 2026 Лысоченко В. Г.</p>
+          <p>Все права защищены.</p>
         </div>
         {footer.policyLink?.href ? (
           <Link

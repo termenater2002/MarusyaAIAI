@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     orderBySql = 'ORDER BY ai_tools.name ASC, ai_tools.id ASC';
   } else if (sort === "rating-desc") {
     orderBySql =
-      'ORDER BY ai_tools.editorial_rating DESC NULLS LAST, ai_tools.name ASC, ai_tools.id ASC';
+      'ORDER BY COALESCE((SELECT AVG(rating_value)::numeric FROM user_ratings WHERE user_ratings.tool_id = ai_tools.id), ai_tools.editorial_rating) DESC NULLS LAST, ai_tools.name ASC, ai_tools.id ASC';
   }
 
   const pool = getPool();
@@ -84,6 +84,16 @@ export async function GET(request: NextRequest) {
       image_url AS "imageUrl",
       short_description AS description,
       editorial_rating AS "editorialRating",
+      (
+        SELECT ROUND(AVG(rating_value)::numeric, 2)
+        FROM user_ratings
+        WHERE user_ratings.tool_id = ai_tools.id
+      ) AS "averageUserRating",
+      (
+        SELECT COUNT(*)::int
+        FROM user_ratings
+        WHERE user_ratings.tool_id = ai_tools.id
+      ) AS "userRatingCount",
       works_in_russia AS "worksInRussia",
       needs_vpn AS "needsVPN",
       requires_registration AS "requiresRegistration",
