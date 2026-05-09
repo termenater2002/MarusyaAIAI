@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
 
   if (worksInRussiaOnly) {
     whereClauses.push(
-      `EXISTS (
+      `(ai_tools.works_in_russia = TRUE OR EXISTS (
         SELECT 1
         FROM service_check_results
         WHERE service_check_results.tool_id = ai_tools.id
@@ -47,10 +47,10 @@ export async function GET(request: NextRequest) {
           AND service_check_results.run_id = (
             SELECT id
             FROM service_check_runs
-            ORDER BY checked_at DESC
+            ORDER BY checked_at DESC, imported_at DESC
             LIMIT 1
           )
-      )`,
+      ))`,
     );
   }
 
