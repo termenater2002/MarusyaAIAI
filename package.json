@@ -12,7 +12,9 @@
     "db:user:create": "node --env-file=.env.local scripts/create-user.mjs",
     "search:index": "node --env-file=.env.local scripts/build-tool-search-index.mjs",
     "services:check": "node scripts/check-services.mjs",
-    "services:import": "node --env-file=.env.local scripts/import-service-checks.mjs"
+    "services:import": "node --env-file=.env.local scripts/import-service-checks.mjs",
+    "services:sync-russia": "node --env-file=.env.local scripts/sync-works-in-russia-from-service-checks.mjs",
+    "services:apply-russia": "node --env-file=.env.local scripts/apply-works-in-russia-from-latest-report.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

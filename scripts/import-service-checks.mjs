@@ -65,6 +65,16 @@ const client = new Client({
   connectionString: databaseUrl,
 });
 
+function chunkArray(items, size) {
+  const chunks = [];
+
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+
+  return chunks;
+}
+
 await client.connect();
 
 try {
@@ -89,9 +99,38 @@ try {
     ],
   );
 
-  for (const row of rows) {
-    const toolId =
-      Number.isInteger(row.sourceIndex) && row.sourceIndex > 0 ? row.sourceIndex : null;
+  const batches = chunkArray(rows, 250);
+
+  for (const batch of batches) {
+    const values = [];
+    const placeholders = [];
+
+    for (const row of batch) {
+      const toolId =
+        Number.isInteger(row.sourceIndex) && row.sourceIndex > 0 ? row.sourceIndex : null;
+
+      const base = values.length;
+      placeholders.push(
+        `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${base + 5}, $${base + 6}, $${base + 7}, $${base + 8}, $${base + 9}, $${base + 10}, $${base + 11}, $${base + 12}, $${base + 13}, $${base + 14})`,
+      );
+
+      values.push(
+        randomUUID(),
+        runId,
+        toolId,
+        row.sourceIndex,
+        row.name,
+        row.entityType ?? null,
+        row.url,
+        Boolean(row.ok),
+        typeof row.status === "number" ? row.status : null,
+        row.finalUrl ?? null,
+        Boolean(row.redirected),
+        typeof row.responseTimeMs === "number" ? row.responseTimeMs : null,
+        row.error ?? null,
+        row.checkedAt,
+      );
+    }
 
     await client.query(
       `INSERT INTO service_check_results (
@@ -109,25 +148,8 @@ try {
         response_time_ms,
         error,
         checked_at
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
-      )`,
-      [
-        randomUUID(),
-        runId,
-        toolId,
-        row.sourceIndex,
-        row.name,
-        row.entityType ?? null,
-        row.url,
-        Boolean(row.ok),
-        typeof row.status === "number" ? row.status : null,
-        row.finalUrl ?? null,
-        Boolean(row.redirected),
-        typeof row.responseTimeMs === "number" ? row.responseTimeMs : null,
-        row.error ?? null,
-        row.checkedAt,
-      ],
+      ) VALUES ${placeholders.join(", ")}`,
+      values,
     );
   }
 
